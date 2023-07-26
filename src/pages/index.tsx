@@ -4,6 +4,7 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { SiEthereum, SiFigma, SiFirebase, SiGit, SiGithub, SiHtml5, SiJavascript, SiLinkedin, SiMongodb, SiNextdotjs, SiNodedotjs, SiPostgresql, SiTailwindcss, SiTwitter, SiTypescript } from 'react-icons/si'
 import Link from 'next/link'
 import Head from 'next/head'
+import { Footer } from '@/components/footer'
 
 
 export default function Home() {
@@ -135,14 +136,14 @@ export default function Home() {
           <Image src='/home/polowear.svg' alt="g2l" height={24} width={125} />
         </div>
       </div>
-      <span className="leading-6">Sou obcecado por side-projects e #BuildinPublic. Alguns projetos ainda estão ativos e outros já foram descontinuados.</span>
+      <span className="leading-6">Sou obcecado por side-projects e <Link href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click" rel="noopener noreferrer">#BuildinPublic</Link>. Alguns projetos ainda estão ativos e outros já foram descontinuados.</span>
       <div className="flex flex-col gap-4">
         <Link href="https://orcamentosimples.vercel.app/" rel="noopener noreferrer">
           <div className="flex p-4 items-center bg-[#262626] border border-[#3D3D3D] rounded" >
             <div className="flex flex-col justify-between flex-1 gap-8">
-              <h1 className="leading-6">
+              <h2 className="leading-6">
                 Orçamentos simples
-              </h1>
+              </h2>
               <p className="leading-6">SaaS para criação e gerenciamento de orçamentos</p>
             </div>
             <FiArrowUpRight size={24} />
@@ -151,9 +152,9 @@ export default function Home() {
         <Link href="https://mulesstudio.vercel.app/" rel="noopener noreferrer">
           <div className="flex p-4 items-center bg-[#262626] border border-[#3D3D3D] rounded" >
             <div className="flex flex-col justify-between flex-1 gap-8">
-              <h1 className="leading-6">
+              <h2 className="leading-6">
                 Mules Studio
-              </h1>
+              </h2>
               <p className="leading-6"> Uma comunidade NFT de Mulas na Blockchain da Fantom.</p>
             </div>
             <FiArrowUpRight size={24} />
@@ -162,9 +163,9 @@ export default function Home() {
         <Link href="https://github.com/brunooomelo/picpay-js" rel="noopener noreferrer">
           <div className="flex p-4 items-center bg-[#262626] border border-[#3D3D3D] rounded" >
             <div className="flex flex-col justify-between flex-1 gap-8">
-              <h1 className="leading-6">
+              <h2 className="leading-6">
                 Picpac-js
-              </h1>
+              </h2>
               <p className="leading-6"> Uma Javascript SDK para API Rest do Picpay Ecommerce</p>
             </div>
             <FiArrowUpRight size={24} />
@@ -173,26 +174,16 @@ export default function Home() {
         <Link href="https://github.com/brunooomelo/lottery" rel="noopener noreferrer">
           <div className="flex p-4 items-center bg-[#262626] border border-[#3D3D3D] rounded" >
             <div className="flex flex-col justify-between flex-1 gap-8">
-              <h1 className="leading-6">
+              <h2 className="leading-6">
                 Lottery
-              </h1>
+              </h2>
               <p className="leading-6"> CLI para receber resultados da Loteria Brasileira</p>
             </div>
             <FiArrowUpRight size={24} />
           </div>
         </Link>
       </div>
-      <div className="w-full flex justify-between">
-        <Link href="https://github.com/brunooomelo" rel="noopener noreferrer">
-          <SiGithub size={24} />
-        </Link>
-        <Link href="https://www.linkedin.com/in/brunooomelo" rel="noopener noreferrer">
-          <SiLinkedin size={24} />
-        </Link>
-        <Link href="https://x.com/brunooomelo" rel="noopener noreferrer">
-          <SiTwitter size={24} />
-        </Link>
-      </div>
+      <Footer />
     </>
   )
 }
