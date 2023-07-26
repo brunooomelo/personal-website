@@ -3,11 +3,15 @@ import { Header } from '@/components/header'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { SiEthereum, SiFigma, SiFirebase, SiGit, SiGithub, SiHtml5, SiJavascript, SiLinkedin, SiMongodb, SiNextdotjs, SiNodedotjs, SiPostgresql, SiTailwindcss, SiTwitter, SiTypescript } from 'react-icons/si'
 import Link from 'next/link'
+import Head from 'next/head'
 
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Home | Bruno Melo</title>
+      </Head>
       <Header />
       <h1 className="text-xl leading-7 tracking-tighter">Prazer, Meu nome é Bruno Melo 👋🏽</h1>
       <span className="leading-6"> Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do Mules Studio é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente estou construindo a orcamentosimples uma plataforma de criação e gerenciamentos de orçamento para empresas.</span>
