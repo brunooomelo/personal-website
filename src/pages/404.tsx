@@ -7,8 +7,8 @@ export default function NotFound() {
       <NextSeo title="Bruno Melo - Pagina não encontrada" />
       <div className="mx-auto flex flex-col items-center gap-4">
         <h1 className="text-2xl font-bold">Pagina não encontrada</h1>
-        <Link href="/" className="px-4 rounded border">
-          Voltar para Home
+        <Link aria-label="Voltar para a home" href="/" className="px-4 rounded border">
+          Voltar para a Home
         </Link>
       </div>
     </>
