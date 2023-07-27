@@ -1,19 +1,20 @@
 import Image from 'next/image'
-import { Header } from '@/components/header'
-import { FiArrowUpRight } from 'react-icons/fi'
-import { SiEthereum, SiFigma, SiFirebase, SiGit, SiGithub, SiHtml5, SiJavascript, SiLinkedin, SiMongodb, SiNextdotjs, SiNodedotjs, SiPostgresql, SiTailwindcss, SiTwitter, SiTypescript } from 'react-icons/si'
 import Link from 'next/link'
-import Head from 'next/head'
-import { Footer } from '@/components/footer'
+import { NextSeo } from 'next-seo'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import { FiArrowUpRight } from 'react-icons/fi'
+import { SiEthereum, SiFigma, SiFirebase, SiGit, SiHtml5, SiJavascript, SiMongodb, SiNextdotjs, SiNodedotjs, SiPostgresql, SiTailwindcss, SiTypescript } from 'react-icons/si'
+
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import { Tooltip } from '@/components/tooltip'
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Home | Bruno Melo</title>
-      </Head>
+      <NextSeo
+        title="Bruno Melo - Home"
+      />
       <Header />
       <h1 className="text-xl leading-7 tracking-tighter">Prazer, Meu nome é Bruno Melo 👋🏽</h1>
       <span className="leading-6"> Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do <Link href="https://mulesstudio.vercel.app" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">Mules Studio</Link> é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente estou construindo a <Link href="https://orcamentosimples.vercel.app" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">OrcamentoSimples</Link>, uma plataforma de criação e gerenciamentos de orçamento para empresas.</span>
