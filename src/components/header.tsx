@@ -4,11 +4,11 @@ export const Header = () => {
   return (
     <header className="w-full h-14 flex items-center">
       <ul className="flex gap-4">
-        <Link href="/">
-          <li className="underline">
+        <li className="underline">
+          <Link href="/">
             HOME
-          </li>
-        </Link>
+          </Link>
+        </li>
       </ul>
     </header>
   )
