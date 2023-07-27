@@ -6,6 +6,7 @@ const Uses = () => {
     <>
       <NextSeo
         title="Bruno Melo - My Setup"
+        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS"
       />
       <h1>Meu Setup</h1>
       <div className="flex flex-col gap-4">
