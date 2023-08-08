@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 type ICompanyData = {
   label: string
@@ -36,10 +37,45 @@ const companies: ICompanyData[] = [
     width: 125
   }]
 
+
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.24
+    }
+  }
+}
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 }
+}
+
+const MotionLink = motion(Link)
 export const CompanyWorked = () => (
-  companies.map(company => (
-    <Link key={company.label} aria-label={`Conheça mais sobre a ${company.label}`} href={company.url} target="_blank" rel="noopener noreferrer" className="w-[150px] min-[514px]:w-[200px] sm:w-[250px] md:w-[170px] h-[100px] bg-[#262626] hover:bg-[#3e3d3d] border border-[#3D3D3D] rounded flex items-center justify-center">
-      <Image src={company.imgPath} alt={`Logo da ${company.label}`} height={company.height} width={company.width} />
-    </Link>
-  ))
+  <motion.section
+    variants={container}
+    initial="hidden"
+    animate="show"
+    className="flex gap-2 flex-wrap justify-center"
+  >
+    {companies.map(company => (
+      <MotionLink
+        variants={item}
+        whileHover={{ scale: 1.03 }}
+        whileFocus={{ scale: 1.03 }}
+        key={company.label}
+        aria-label={`Conheça mais sobre a ${company.label}`}
+        href={company.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-[150px] min-[514px]:w-[200px] sm:w-[250px] md:w-[170px] h-[100px] bg-[#262626] hover:bg-[#3e3d3d] border border-[#3D3D3D] rounded flex items-center justify-center"
+      >
+        <Image src={company.imgPath} alt={`Logo da ${company.label}`} height={company.height} width={company.width} />
+      </MotionLink>
+    ))}
+  </motion.section>
 )

@@ -7,7 +7,6 @@ import { Technologies } from '@/components/technologies'
 import { CompanyWorked } from '@/components/companies-worked'
 import { Projects } from '@/components/projects'
 
-
 export default function Home() {
   return (
     <>
@@ -84,18 +83,12 @@ export default function Home() {
         </div>
       </div> */}
       <p className="leading-6">Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da minha jornada como desenvolvedor:</p>
-      <section className="flex gap-4 flex-wrap justify-center">
-        <Technologies />
-      </section>
+      <Technologies />
 
       <p className="leading-6">já trabalhei em empresas como desenvolvedor backend e frontend e até como UI designer</p>
-      <section className="flex gap-2 flex-wrap justify-center">
-        <CompanyWorked />
-      </section>
+      <CompanyWorked />
       <p className="leading-6">Sou apaixonado em side-projects e <Link aria-label="Conheça mais sobre o build in public no twitter" href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">#BuildinPublic</Link>. Alguns projetos ainda estão ativos e outros já foram descontinuados.</p>
-      <section className="flex flex-col gap-4">
-        <Projects />
-      </section>
+      <Projects />
       <Footer />
     </>
   )
