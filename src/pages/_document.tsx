@@ -1,5 +1,5 @@
-import Analytics from '@/components/analytics'
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Analytics } from "@/components/analytics";
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -8,8 +8,8 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <Analytics />
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </Html>
-  )
+  );
 }
