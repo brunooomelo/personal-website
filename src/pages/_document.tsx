@@ -1,4 +1,3 @@
-import { Analytics } from "@/components/analytics";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -8,7 +7,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </Html>
   );

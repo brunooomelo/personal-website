@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { CommentList } from "@/components/comment-list";
 import { useQuery } from "react-query";
 import { CommentForm } from "@/components/form-comment";
+import { event } from "@/utils/gtag";
 
 export default function Guestbook() {
   const { data: session, status } = useSession();
@@ -24,7 +25,15 @@ export default function Guestbook() {
 
       {status === "unauthenticated" && (
         <button
-          onClick={() => signIn("github")}
+          onClick={() => {
+            event({
+              action: "sign-in-github",
+              category: "login",
+              label: "sign in with github on guestbook page",
+              value: 1,
+            });
+            signIn("github");
+          }}
           className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
         >
           <SiGithub className="h-5 w-5" />

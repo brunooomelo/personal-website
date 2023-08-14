@@ -7,6 +7,7 @@ import { DefaultSeo } from "next-seo";
 import { SessionProvider } from "next-auth/react";
 
 import SEO from "../../next-seo.config";
+import { Analytics } from "@/components/analytics";
 
 const font = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] });
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ export default function App({
           </main>
         </SessionProvider>
       </QueryClientProvider>
+      {process.env.NODE_ENV === "production" && <Analytics />}
     </>
   );
 }

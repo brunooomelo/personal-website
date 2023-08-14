@@ -1,3 +1,4 @@
+import { pageview } from "@/utils/gtag";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -29,7 +30,12 @@ export const Header = () => {
             className={`${route === page.url ? "underline" : ""} uppercase`}
             key={page.label}
           >
-            <Link aria-label={page.ariaLabel} href={page.url}>
+            <Link
+              aria-label={page.ariaLabel}
+              href={page.url}
+              as={page.url}
+              onClick={() => pageview(page.url)}
+            >
               {page.label}
             </Link>
           </li>

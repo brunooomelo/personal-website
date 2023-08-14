@@ -1,3 +1,4 @@
+import { event } from "@/utils/gtag";
 import { signOut } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { FiSend } from "react-icons/fi";
@@ -103,7 +104,15 @@ export const CommentForm = ({ username }: CommentFormProps) => {
         </button>
       </form>
       <button
-        onClick={() => signOut()}
+        onClick={() => {
+          event({
+            action: "sign-out-github",
+            category: "login",
+            label: "sign out on guestbook page",
+            value: 1,
+          });
+          signOut();
+        }}
         className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6"
         disabled={isLoading}
       >
