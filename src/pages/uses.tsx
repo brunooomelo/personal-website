@@ -1,3 +1,4 @@
+import { Header } from "@/components/header";
 import UsesJSON from "../../public/uses.json";
 import { NextSeo } from "next-seo";
 
@@ -8,6 +9,7 @@ const Uses = () => {
         title="Bruno Melo - My Setup"
         description="My Setup é onde você ira conhecer meu setup, meus aplicativos e algumas curiosidades sobre meu ambiente de trabalho e hobby."
       />
+      <Header />
       <h1>Meu Setup</h1>
       <div className="flex flex-col gap-4">
         {Object.keys(UsesJSON).map((key) => (

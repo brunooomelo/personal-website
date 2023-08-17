@@ -18,6 +18,11 @@ const pages = [
     ariaLabel: "Ir para a página do guestbook",
     url: "/guestbook",
   },
+  {
+    label: "uses",
+    ariaLabel: "Ir para a página de setup",
+    url: "/uses",
+  },
 ];
 
 export const Header = () => {
