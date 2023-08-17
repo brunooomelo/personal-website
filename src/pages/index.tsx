@@ -1,22 +1,46 @@
-import Link from 'next/link'
-import { NextSeo } from 'next-seo'
+import Link from "next/link";
+import { NextSeo } from "next-seo";
 
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { Technologies } from '@/components/technologies'
-import { CompanyWorked } from '@/components/companies-worked'
-import { Projects } from '@/components/projects'
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { Technologies } from "@/components/technologies";
+import { CompanyWorked } from "@/components/companies-worked";
+import { Projects } from "@/components/projects";
 
 export default function Home() {
   return (
     <>
       <NextSeo
         title="Bruno Melo - Home"
-        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS"
+        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS."
       />
       <Header />
-      <h1 className="text-xl leading-7 tracking-tighter">Prazer, Meu nome é Bruno Melo 👋🏽</h1>
-      <h2 className="leading-6"> Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do <Link href="https://mulesstudio.vercel.app" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">Mules Studio</Link> é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente estou construindo a <Link href="https://orcamentosimples.vercel.app" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">OrcamentoSimples</Link>, uma plataforma de criação e gerenciamentos de orçamento para empresas.</h2>
+      <h1 className="text-xl leading-7 tracking-tighter">
+        Prazer, Meu nome é Bruno Melo 👋🏽
+      </h1>
+      <h2 className="leading-6">
+        {" "}
+        Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do{" "}
+        <Link
+          href="https://mulesstudio.vercel.app"
+          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Mules Studio
+        </Link>{" "}
+        é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
+        estou construindo a{" "}
+        <Link
+          href="https://orcamentosimples.vercel.app"
+          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          OrcamentoSimples
+        </Link>
+        , uma plataforma de criação e gerenciamentos de orçamento para empresas.
+      </h2>
       {/* <div className="columns-2 sm:columns-3 gap-4 my-8">
         <div className="relative h-40 mb-4">
           <Image
@@ -82,14 +106,32 @@ export default function Home() {
           />
         </div>
       </div> */}
-      <p className="leading-6">Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da minha jornada como desenvolvedor:</p>
+      <p className="leading-6">
+        Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da
+        minha jornada como desenvolvedor:
+      </p>
       <Technologies />
 
-      <p className="leading-6">já trabalhei em empresas como desenvolvedor backend e frontend e até como UI designer</p>
+      <p className="leading-6">
+        já trabalhei em empresas como desenvolvedor backend e frontend e até
+        como UI designer
+      </p>
       <CompanyWorked />
-      <p className="leading-6">Sou apaixonado em side-projects e <Link aria-label="Conheça mais sobre o build in public no twitter" href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click" className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200" target="_blank" rel="noopener noreferrer">#BuildinPublic</Link>. Alguns projetos ainda estão ativos e outros já foram descontinuados.</p>
+      <p className="leading-6">
+        Sou apaixonado em side-projects e{" "}
+        <Link
+          aria-label="Conheça mais sobre o build in public no twitter"
+          href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click"
+          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          #BuildinPublic
+        </Link>
+        . Alguns projetos ainda estão ativos e outros já foram descontinuados.
+      </p>
       <Projects />
       <Footer />
     </>
-  )
+  );
 }

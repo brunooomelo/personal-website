@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 export default function Blog() {
   return (
     <>
-      <NextSeo title="Bruno Melo - Blog" />
+      <NextSeo title="Bruno Melo - Blog" description="" />
       <Header />
       <div className="mx-auto flex flex-col items-center gap-4">
         <h1 className="text-xl leading-7 tracking-tighter">

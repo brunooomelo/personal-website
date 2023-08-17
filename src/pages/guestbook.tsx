@@ -17,7 +17,10 @@ export default function Guestbook() {
 
   return (
     <>
-      <NextSeo title="Bruno Melo - Guestbook" />
+      <NextSeo
+        title="Bruno Melo - Guestbook"
+        description="Guestbook: Um livro de visita onde você pode deixar sua preciosa mensagem para mim e tambem ver todas as mensagem antigas"
+      />
       <Header />
       <h1 className="text-xl leading-7 tracking-tighter">
         Bem-vindo ao meu Guestbook 📕

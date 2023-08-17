@@ -6,11 +6,15 @@ export default function NotFound() {
     <>
       <NextSeo
         title="Bruno Melo - Pagina não encontrada"
-        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS"
+        description="Pagina não encontrada, aqui você pode voltar para home e continuar a navegação pela site."
       />
       <div className="mx-auto flex flex-col items-center gap-4">
         <h1 className="text-2xl font-bold">Pagina não encontrada</h1>
-        <Link aria-label="Voltar para a home" href="/" className="px-4 rounded border">
+        <Link
+          aria-label="Voltar para a home"
+          href="/"
+          className="px-4 rounded border"
+        >
           Voltar para a Home
         </Link>
       </div>
