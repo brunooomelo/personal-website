@@ -8,9 +8,12 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+html {
+  @apply scroll-smooth;
+}
+
 body {
   background-color: #111010;
   color: #fff;
-  @apply scroll-smooth;
   -webkit-font-smoothing: antialiased;
 }
