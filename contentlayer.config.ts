@@ -20,11 +20,30 @@ export const Content = defineDocumentType(() => ({
       type: "string",
       resolve: (post) => `/blog/${post._raw.flattenedPath}`,
     },
+    structuredData: {
+      type: "json",
+      resolve: (doc) => ({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: doc.title,
+        datePublished: doc.publishedAt,
+        dateModified: doc.publishedAt,
+        description: doc.summary,
+        image: doc.image
+          ? `https://brunooomelo.vercel.app${doc.image}`
+          : `https://brunooomelo.vercel.app/og?title=${doc.title}`,
+        url: `https://brunooomelo.vercel.app/blog/${doc._raw.flattenedPath}`,
+        author: {
+          "@type": "Person",
+          name: "Bruno Melo",
+        },
+      }),
+    },
   },
 }));
 
 export default makeSource({
-  contentDirPath: "docs",
+  contentDirPath: "posts",
   documentTypes: [Content],
   mdx: {
     remarkPlugins: [remarkGfm],
