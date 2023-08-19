@@ -17,30 +17,22 @@ export default function Blog() {
     <>
       <NextSeo title="Bruno Melo - Blog" />
       <Header />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
+        <h2 className="text-xl leading-7 tracking-tighter">
+          Todos os meus posts 📝
+        </h2>
+
         {!posts.length && (
-          <>
-            <h1 className="text-xl leading-7 tracking-tighter">
-              Work in Progress 🚨👷🏽🚧
-            </h1>
-            <Link
-              aria-label="Voltar para a home"
-              href="/"
-              className="px-4 w-2/4 rounded border"
-            >
-              Voltar para a Home
-            </Link>
-          </>
+          <h3 className="text-xl leading-7 tracking-tighter">
+            Não tem posts ainda, posts em contrução 🚨👷🏽🚧
+          </h3>
         )}
-
-        {posts.length && (
-          <>
-            <h1 className="mb-8 text-2xl font-bold">Posts</h1>
-
+        {!!posts.length && (
+          <div className="flex flex-col gap-2">
             {posts.map((post, idx) => (
               <PostCard key={idx} {...post} />
             ))}
-          </>
+          </div>
         )}
       </div>
     </>
@@ -49,12 +41,9 @@ export default function Blog() {
 
 function PostCard(post: Content) {
   return (
-    <div className="">
-      <h2 className="mb-1 text-xl">
-        <Link
-          href={post.url}
-          className="text-blue-700 hover:text-blue-900 dark:text-blue-400"
-        >
+    <div className="flex flex-col gap-1">
+      <h2 className="">
+        <Link href={post.url} className="text-cyan-400 hover:text-cyan-200">
           {post.title}
         </Link>
       </h2>
