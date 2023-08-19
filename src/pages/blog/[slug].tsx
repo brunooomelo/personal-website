@@ -7,8 +7,7 @@ import { GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import { Content, allContents } from "contentlayer/generated";
-
+import { Content, allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
 
 export const getStaticPaths: GetStaticPaths = () => {

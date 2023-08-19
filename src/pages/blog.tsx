@@ -2,8 +2,8 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { compareDesc, format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import { allContents, Content } from "@contentlayer/generated";
 import { Header } from "@/components/header";
-import { allContents, Content } from "contentlayer/generated";
 
 export const generateStaticParams = async () =>
   allContents.map((post) => ({ slug: post._raw.flattenedPath }));
