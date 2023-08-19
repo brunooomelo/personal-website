@@ -1,10 +1,15 @@
-import Link from "next/link";
-import { format, parseISO } from "date-fns";
-import { Content, allContents } from "contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
-import { GetStaticPaths } from "next";
-import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Script from "next/script";
+import { NextSeo } from "next-seo";
+import { GetStaticPaths } from "next";
+import { useRouter } from "next/router";
+import { format, parseISO } from "date-fns";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import { Content, allContents } from "contentlayer/generated";
+
+import { Header } from "@/components/header";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = allContents.map((post) => ({
@@ -56,26 +61,45 @@ function RoundedImage(props: any) {
 }
 
 const PostLayout = (content: Content) => {
+  const router = useRouter();
   const MDXContent = useMDXComponent(content.body.code);
   return (
-    <article className=" max-w-xl py-8 prose prose-quoteless prose-neutral dark:prose-invert">
-      <div className="mb-8 text-center">
-        <time
-          dateTime={content.publishedAt}
-          className="mb-1 text-xs text-gray-600"
-        >
-          {format(parseISO(content.publishedAt), "LLLL d, yyyy")}
-        </time>
-        <h1 className="text-3xl font-bold">{content.title}</h1>
-      </div>
+    <>
+      <NextSeo title={content.title} description={content.summary} />
+      <Header />
+      <article className="py-8 prose prose-quoteless prose-neutral dark:prose-invert">
+        <div className="mb-8">
+          <button
+            onClick={() => router.back()}
+            className="mb-8 flex gap-1 px-1 text-sm underline"
+          >
+            Voltar
+          </button>
+          <time
+            dateTime={content.publishedAt}
+            className="text-xs text-gray-600"
+          >
+            {format(parseISO(content.publishedAt), "LLLL d, yyyy")}
+          </time>
+          <h1 className="text-3xl font-bold">{content.title}</h1>
+        </div>
 
-      <MDXContent
-        components={{
-          a: CustomLink,
-          image: RoundedImage,
+        <MDXContent
+          components={{
+            a: CustomLink,
+            image: RoundedImage,
+          }}
+        />
+      </article>
+      <Script
+        id="script-ldjson"
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(content.structuredData),
         }}
       />
-    </article>
+    </>
   );
 };
 
