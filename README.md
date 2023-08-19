@@ -3,6 +3,7 @@
 # brunooomelo
 
 - **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
 - **Analytics**: [Vercel Analytics](https://analytics.google.com/analytics/web)
@@ -19,8 +20,6 @@ pnpm install
 pnpm run setup # Remove all of my personal information
 pnpm dev
 ```
-
-NEXT_PUBLIC_GA_ID
 
 Create a `.env` file similar to [`.env.example`](https://github.com/brunooomelo/personal-website/blob/main/.env.example).
 
