@@ -18,7 +18,7 @@ export default async function handler(
   const db = client.db("personal-website");
   if (req.method === "POST") {
     const { username, comment } = req.body;
-    if (!username || !comment || comment === "fodase") {
+    if (!username || !comment) {
       return res.status(401).end();
     }
 

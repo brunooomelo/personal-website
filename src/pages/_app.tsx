@@ -38,7 +38,7 @@ export default function App({
           </main>
         </SessionProvider>
       </QueryClientProvider>
-      {process.env.NODE_ENV === "production" && <Analytics />}
+      <Analytics />
     </>
   );
 }

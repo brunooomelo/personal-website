@@ -2,15 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-debug],
+[data-debug] * {
+  outline: 2px dashed hsl(320 100% 50%);
+  overflow: visible !important;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
+html {
+  @apply scroll-smooth;
+}
+
 body {
   background-color: #111010;
   color: #fff;
-  @apply scroll-smooth;
   -webkit-font-smoothing: antialiased;
+}
+
+[data-rehype-pretty-code-fragment] code {
+  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
+  counter-reset: line;
+  box-decoration-break: clone;
+}
+
+[data-rehype-pretty-code-fragment] > pre {
+  @apply border border-[#333333] bg-[#1c1c1c];
+}
+
+[data-rehype-pretty-code-title] {
+  @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
+}
+[data-rehype-pretty-code-title] + pre {
+  @apply mt-0 rounded-t-none;
 }

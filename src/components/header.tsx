@@ -32,7 +32,12 @@ export const Header = () => {
       <ul className="flex gap-4">
         {pages.map((page) => (
           <li
-            className={`${route === page.url ? "underline" : ""} uppercase`}
+            className={`${
+              route === page.url ||
+              (route.includes(page.url) && page.url !== "/")
+                ? "underline"
+                : ""
+            } uppercase`}
             key={page.label}
           >
             <Link
