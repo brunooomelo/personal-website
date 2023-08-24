@@ -30,7 +30,7 @@ export default function Blog() {
         {!!posts.length && (
           <div className="flex flex-col gap-2">
             {posts.map((post, idx) => (
-              <PostCard key={idx} {...post} />
+              <ContentCard key={idx} {...post} />
             ))}
           </div>
         )}
@@ -39,19 +39,34 @@ export default function Blog() {
   );
 }
 
-function PostCard(post: Content) {
+function ContentCard(content: Content) {
+  const incrementPost = () =>
+    fetch("/api/postview", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: content._id,
+      }),
+    });
+
   return (
     <div className="flex flex-col gap-1">
       <h2 className="">
-        <Link href={post.url} className="text-cyan-400 hover:text-cyan-200">
-          {post.title}
+        <Link
+          href={content.url}
+          onClick={incrementPost}
+          className="text-cyan-400 hover:text-cyan-200"
+        >
+          {content.title}
         </Link>
       </h2>
       <time
-        dateTime={post.publishedAt}
+        dateTime={content.publishedAt}
         className="mb-2 block text-xs text-gray-600"
       >
-        {format(parseISO(post.publishedAt), "LLLL d, yyyy", {
+        {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
           locale: ptBR,
         })}
       </time>

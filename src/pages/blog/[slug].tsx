@@ -3,12 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { NextSeo } from "next-seo";
-import { GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Content, allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
+import { GetStaticPaths } from "next/types";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = allContents.map((post) => ({
