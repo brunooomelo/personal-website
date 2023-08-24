@@ -52,14 +52,21 @@ export default async function handler(
   if (req.method === "GET") {
     const { id } = req.query;
     if (!id) {
-      return res.status(401).end();
+      return res.status(401).json(null);
     }
 
-    await db.collection("postview").findOne({
+    const postview = await db.collection<Comment>("postview").findOne({
       postId: id,
     });
 
-    return res.status(201).end();
+    if (!postview) {
+      return res.status(404).json(null);
+    }
+
+    return res.status(200).json({
+      postId: id as string,
+      view_count: postview.view_count,
+    });
   }
 
   return res.status(404).json(null);

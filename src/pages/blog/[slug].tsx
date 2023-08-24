@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import ptBR from "date-fns/locale/pt-BR";
+import { GetStaticPaths } from "next/types";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Content, allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
-import { GetStaticPaths } from "next/types";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = allContents.map((post) => ({
@@ -78,7 +79,9 @@ const PostLayout = (content: Content) => {
             dateTime={content.publishedAt}
             className="text-xs text-gray-600"
           >
-            {format(parseISO(content.publishedAt), "LLLL d, yyyy")}
+            {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
+              locale: ptBR,
+            })}
           </time>
           <h1 className="text-3xl font-bold">{content.title}</h1>
         </div>
