@@ -74,7 +74,7 @@ export const CommentList = ({
           custom={index}
           variants={item}
           className={`flex gap-1 w-full text-sm break-words px-2 ${
-            ownerId === comment.id
+            ownerId && ownerId === comment.id
               ? "bg-[#1f1f1f] hover:bg-[#2f2f2f] rounded"
               : ""
           }`}
