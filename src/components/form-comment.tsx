@@ -1,4 +1,5 @@
 import { event } from "@/utils/gtag";
+import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { FiSend } from "react-icons/fi";
@@ -8,9 +9,9 @@ type FormValues = {
   comment: string;
 };
 type CommentFormProps = {
-  username?: string | null;
+  session: Session;
 };
-export const CommentForm = ({ username }: CommentFormProps) => {
+export const CommentForm = ({ session }: CommentFormProps) => {
   const queryClient = useQueryClient();
   const {
     control,
@@ -18,6 +19,7 @@ export const CommentForm = ({ username }: CommentFormProps) => {
     formState: { isLoading },
     reset,
   } = useForm<FormValues>();
+
   const mutation = useMutation(
     (newComment: FormValues) =>
       fetch("/api/guestbook", {
@@ -49,13 +51,15 @@ export const CommentForm = ({ username }: CommentFormProps) => {
   );
 
   const onSubmit = async (data: FormValues) => {
-    if (!username) {
+    if (!session.user) {
       alert("voce nao esta authenticado");
       return;
     }
 
     const newComment = {
-      username,
+      id: session.user.id,
+      name: session.user.name,
+      username: session.user.username,
       comment: data.comment,
     };
 

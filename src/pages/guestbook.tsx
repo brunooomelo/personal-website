@@ -58,11 +58,15 @@ export default function Guestbook() {
         </div>
       )}
 
-      {!!session && status === "authenticated" && (
-        <CommentForm username={session?.user?.name} />
+      {!!session?.user && status === "authenticated" && (
+        <CommentForm session={session} />
       )}
 
-      <CommentList isLoading={isLoading} comments={comments} />
+      <CommentList
+        isLoading={isLoading}
+        comments={comments}
+        ownerId={session?.user?.id}
+      />
     </>
   );
 }

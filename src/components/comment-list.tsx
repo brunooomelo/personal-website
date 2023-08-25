@@ -1,15 +1,50 @@
+import { motion } from "framer-motion";
+import Link from "next/link";
+
 type Comment = {
   _id: string;
+  id?: string | null;
   username: string;
+  name?: string | null;
   comment: string;
 };
 type CommentListProps = {
   comments: Comment[];
   isLoading: boolean;
+  ownerId?: string | null;
 };
-export const CommentList = ({ comments, isLoading }: CommentListProps) => {
+
+const item = {
+  hidden: {
+    opacity: 0,
+    x: -50,
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: i * 0.2,
+    },
+  }),
+};
+
+const container = {
+  hidden: {},
+  visible: {},
+};
+
+export const CommentList = ({
+  comments,
+  isLoading,
+  ownerId,
+}: CommentListProps) => {
   return (
-    <div className="flex flex-col space-y-1 mb-4">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="flex flex-col space-y-1 mb-4"
+    >
       {isLoading && (
         <div className="animate-pulse flex space-x-4">
           <div className="flex-1 space-y-6 py-1">
@@ -34,15 +69,43 @@ export const CommentList = ({ comments, isLoading }: CommentListProps) => {
           </div>
         </div>
       )}
-      {!isLoading &&
-        comments?.map((comment) => (
-          <div className="w-full text-sm break-words" key={comment._id}>
-            <span className="text-neutral-600 dark:text-neutral-400 mr-1">
+      {comments?.map((comment, index) => (
+        <motion.div
+          custom={index}
+          variants={item}
+          className={`flex gap-1 w-full text-sm break-words px-2 ${
+            ownerId === comment.id
+              ? "bg-[#1f1f1f] hover:bg-[#2f2f2f] rounded"
+              : ""
+          }`}
+          key={comment._id}
+        >
+          {!!comment.id ? (
+            <Link
+              href={`https://github.com/${comment.username}`}
+              className="block text-neutral-600 dark:text-neutral-400"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {comment.name}:
+            </Link>
+          ) : (
+            <span className="block text-neutral-600 dark:text-neutral-400">
               {comment.username}:
             </span>
-            {comment.comment}
+          )}
+          <div className="flex-1">
+            <span>
+              {comment.comment}{" "}
+              {!comment._id && (
+                <span className="inline-flex items-center rounded-md bg-gray-400/10 px-2 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
+                  Enviando mensagem
+                </span>
+              )}
+            </span>
           </div>
-        ))}
-    </div>
+        </motion.div>
+      ))}
+    </motion.div>
   );
 };
