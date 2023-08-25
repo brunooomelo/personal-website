@@ -1,5 +1,6 @@
 import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
+import { databaseName } from "./_lib/config";
 
 type Comment = {
   postId: string;
@@ -11,7 +12,7 @@ export default async function handler(
   res: NextApiResponse<Comment | null>
 ) {
   const client = await clientPromise;
-  const db = client.db("personal-website");
+  const db = client.db(databaseName);
 
   if (req.method === "POST") {
     const { id } = req.body;
