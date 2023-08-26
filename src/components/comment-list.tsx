@@ -80,30 +80,28 @@ export const CommentList = ({
           }`}
           key={comment._id}
         >
-          {!!comment.id ? (
-            <Link
-              href={`https://github.com/${comment.username}`}
-              className="block text-neutral-600 dark:text-neutral-400"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {comment.name}:
-            </Link>
-          ) : (
-            <span className="block text-neutral-600 dark:text-neutral-400">
-              {comment.username}:
-            </span>
-          )}
-          <div className="flex-1">
-            <span>
-              {comment.comment}{" "}
-              {!comment._id && (
-                <span className="inline-flex items-center rounded-md bg-gray-400/10 px-2 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
-                  Enviando mensagem
-                </span>
-              )}
-            </span>
-          </div>
+          <span>
+            {!!comment.id ? (
+              <Link
+                href={`https://github.com/${comment.username}`}
+                className="text-neutral-600 dark:text-neutral-400"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {comment.name}:
+              </Link>
+            ) : (
+              <span className="text-neutral-600 dark:text-neutral-400">
+                {comment.username}:
+              </span>
+            )}{" "}
+            {comment.comment}{" "}
+            {!comment._id && (
+              <span className="inline-flex items-center rounded-md bg-gray-400/10 px-2 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
+                Enviando mensagem
+              </span>
+            )}
+          </span>
         </motion.div>
       ))}
     </motion.div>
