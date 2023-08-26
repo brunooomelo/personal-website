@@ -6,7 +6,7 @@
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
-- **Analytics**: [Vercel Analytics](https://analytics.google.com/analytics/web)
+- **Analytics**: [Google Analytics](https://analytics.google.com/analytics/web)
 
 
 ## Running Locally
