@@ -1,6 +1,7 @@
 import { pageview } from "@/utils/gtag";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { SwitchLocale } from "./switch-locale";
 
 const pages = [
   {
@@ -26,9 +27,10 @@ const pages = [
 ];
 
 export const Header = () => {
-  const { route } = useRouter();
+  const { route, locale } = useRouter();
+
   return (
-    <header className="w-full h-14 flex items-center">
+    <header className="w-full h-14 flex items-center justify-between">
       <ul className="flex gap-4">
         {pages.map((page) => (
           <li
@@ -45,12 +47,14 @@ export const Header = () => {
               href={page.url}
               as={page.url}
               onClick={() => pageview(page.url)}
+              locale={locale}
             >
               {page.label}
             </Link>
           </li>
         ))}
       </ul>
+      <SwitchLocale />
     </header>
   );
 };
