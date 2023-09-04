@@ -43,7 +43,7 @@ const CustomLink = (props: any) => {
   }
 
   if (href.startsWith("#")) {
-    return <a {...props} className={className} />;
+    return <a {...props} className={className}>{props.children}</a>;
   }
 
   return (
@@ -52,7 +52,7 @@ const CustomLink = (props: any) => {
       rel="noopener noreferrer"
       {...props}
       className={className}
-    />
+    >{props.children}</a>
   );
 };
 
