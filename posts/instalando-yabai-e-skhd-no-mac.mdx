@@ -24,19 +24,19 @@ Eu lhe apresento [yabai](https://github.com/koekeishiya/yabai) seu novo gerencia
 ## configurando o yabai
 
 Primeiramente temos dois tipos de [layout no yabai](https://github.com/koekeishiya/yabai/wiki/Configuration#layout), bsp é o modo normal/gerenciavel e o modo float(flutuante) este modo vai sobrepor tudo, você vai entender isso mais para frente.
-```help
+```bash
 # layout bsp ou float (default:float)
 yabai -m config layout bsp
 ```
 vamos configurar aonde vai nascer as janelas, temos first_child ou second_child, first_child a janela vai aparecer a esquerda na horizontal e em cima na vertical, e o second_child vai nascer a direita na horizontal e abaixo na vertical, eu prefiro a opção `second_child`;
     
-```help
+```bash
 # window spawn
 yabai -m config window_placement second_child
 ```
 agora [padding](https://github.com/koekeishiya/yabai/wiki/Configuration#padding-and-gaps) basico entre as janelas, usei a base de 8px (ahoo UI DESIGNER!)
 
-```help
+```bash
 # padding sobre a tela
 yabai -m config top_padding 8
 yabai -m config bottom_padding 8
@@ -47,20 +47,18 @@ yabai -m config right_padding 8
 yabai -m config window_gap 8
 ```
 algumas configurações de mouse no yabai
-```help
+```bash
 # o mouse segue o foco quando troca de janela (default: off)
 yabai -m config mouse_follows_focus on
 
 # definir o modifier pro mouse
 yabai -m config mouse_modifier alt
 
-
 # modifier + botão esquerdo + arrastar (drag), move a janela
 yabai -m config mouse_action1 move
 
 # modifier + botão direito + arrastar (drag), aumenta/diminiu a janela
 yabai -m config mouse_action2 resize
-
 
 # definindo ação de swap
 yabai -m mouse_drop_action swap
