@@ -30,16 +30,16 @@ export default function Home() {
           Mules Studio
         </Link>{" "}
         é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
-        estou construindo a{" "}
+        estou construindo o{" "}
         <Link
-          href="https://orcamentosimples.vercel.app"
+          href="https://figurinhaszap.com"
           className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
           target="_blank"
           rel="noopener noreferrer"
         >
-          OrcamentoSimples
+          Figurinhas
         </Link>
-        , uma plataforma de criação e gerenciamentos de orçamento para empresas.
+        , uma plataforma de criação de figurinhas de Whatsapp online e grátis.
       </h2>
       {/* <div className="columns-2 sm:columns-3 gap-4 my-8">
         <div className="relative h-40 mb-4">

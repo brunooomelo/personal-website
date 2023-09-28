@@ -4,9 +4,9 @@ import { FiArrowUpRight } from 'react-icons/fi'
 
 const projects = [{
   ariaLabel: "Conheça mais sobre meu orçamento simples",
-  url: 'https://orcamentosimples.vercel.app',
-  title: 'Orçamentos simples',
-  description: 'SaaS para a criação e gerenciamento de orçamentos',
+  url: 'https://figurinhaszap.com',
+  title: 'Figurinhas',
+  description: 'Gerador de figurinhas de WhatsApp online e sem precisar de aplicativo.',
   isArchived: false
 }, {
   ariaLabel: 'Conheça mais sobre o Mules Studio, NFT de Mulas na Blockchain da Fantom',
