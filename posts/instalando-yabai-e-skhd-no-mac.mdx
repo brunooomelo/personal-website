@@ -1,6 +1,6 @@
 ---
 title: 'Trabalhando com janelas com yabai'
-publishedAt: '2023-02-04'
+publishedAt: '2023-10-20'
 summary: 'Instalando e configurando yabai com skhd e esquecer o Rectangle'
 ---
 
@@ -10,6 +10,7 @@ Após um bom tempo criando coragem para escrever para meu blog, es aqui meu prim
 
 Quem já instalou Rectangle no OSX, sabe a tristeza de ficar arrumando as janelas apos mexer nelas, ficar ajustando milimetricamente para ficar com espacamento ou quando precisa alterar o layout e hoje você vai encontrar o substituto e nunca mais troca-lo.
 
+O Yabai é um organizador de janelas que vai substituir o famoso Rectangle. Ele permite redimensionar, mover e dividir janelas tipo o que o TMUX faz com as janelas do terminal. E também vamos personalizá-lo com atalhos para ficar melhor adaptação. 
 
 ## Yabai
 
@@ -19,7 +20,9 @@ Eu lhe apresento [yabai](https://github.com/koekeishiya/yabai) seu novo gerencia
 
 ## instalando yabai
 
-...explicando minimamente como instala...
+vou deixar a instalação com você, segue o passo a passo da [documentação](https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection)
+
+após tudo configurado corretamente, vamos para o que interessa.
 
 ## configurando o yabai
 
@@ -87,27 +90,94 @@ creio que isso seja o basico para começar a brincar com yabai. agora vamos para
 
 ## explicando alguns comandos
 
-...configurando o yabai...
+```help
+# muda o foco da janela
+yabai -m window --focus south
+yabai -m window --focus north
+yabai -m window --focus west
+yabai -m window --focus east
 
+# muda o foco da janela
+yabai -m display --focus west
+yabai -m display --focus east
+
+# gira todo o espaço 270 graus
+yabai -m space --rotate 270
+
+# troca o lado das janelas na vertical
+yabai -m space --mirror x-axis
+
+# troca o lado das janelas na horizontal
+yabai -m space --mirror y-axis
+
+# troca a janela para float (ignora a grid tipo um absolute do css)
+yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# troca a janela para fullscreen
+yabai -m window --toggle zoom-fullscreen
+
+# deixa todas janelas no mesmo tamanho
+yabai -m space --balance
+
+# troca a janela para o lado selecionado baixo(south), cima(north), esquerda(west) ou direita(east) mantendo o tamanho da janela trocada
+yabai -m window --swap south
+
+# move a janela atual para a proxima (next) ou anterior (prev)
+yabai -m window --space prev
+yabai -m window --space next
+
+```
 
 aaah !! mas eu vou precisar ficar digitando os comandos? e agora eu lhe apresento o skhd
 
 ## quem é o skhd?
 
-...explicando como funciona...
+SKHD é um hotkey para OSX, ele vai nos ajudar a configurar teclas para executar as funçōes acima
 
-## instalando yabai
+## instalando skhd
 
-...explicando minimamente como instala...
+vamos olhar a documentação do [skhd](https://github.com/koekeishiya/skhd) pois tem uma instalação muito simples.
 
-## configurando o yabai
+```help
+# com homebrew
+  brew install koekeishiya/formulae/skhd
+  skhd --start-service
 
-...configurando o yabai...
+# com git clone
+  git clone https://github.com/koekeishiya/skhd
+  make install      # release version
+  make              # debug version
+```
 
-## explicando alguns comandos
+## configurando o skhd
+criei um arquivo `~/.skhdrc` na home e vamos para as configuraçōes
 
-...configurando o yabai...
+```help
+# vamos fazer um configuração como teste
+# config de start e stop do serviço do yabai
+ctrl + alt - q : yabai --stop-service;osascript -e 'display notification "yabai stop service 🛑"';
+ctrl + alt - s : yabai --start-service;osascript -e 'display notification "yabai start service 🔥"';
+```
 
+vemos acima um padrao, `atalho : comando;` é basicamente isso.
+vamos fazer outra atalho
+```help
+# quando såo teclas como shift,ctrl,alt usamos `+` para concatenar eles e `-` para definir a tecla final
+shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+```
+após adicionar e vamos utilizar o comando `yabai --reload-service` no terminal e testaremos `shift+alt t` e VUHALA 🪄🔥
 
+sua janela está no modo Flutuante e se voce apertar novamente o atalho, a janela vai voltar para o grid.
 
-... é hora de dar tchau ...
+Agora é só brincar com isso e gerar seus atalhos.
+
+## Bonus
+vou deixar minha configuração para você ter uma base e ajustar suas configuraçōes como desejar.
+
+[.skhdrc](https://github.com/brunooomelo/dotfiles/blob/main/skhd/.skhdrc)
+
+Espero que tenha lhe ajudado.
+Até mais tarde, vou ali e volto quando eu conseguir sair do vim
+
+ctrl + c
+...exit
