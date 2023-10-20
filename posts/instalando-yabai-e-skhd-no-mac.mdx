@@ -67,12 +67,12 @@ yabai -m mouse_drop_action swap
 
 tem algumas [configurações de exceção](https://github.com/koekeishiya/yabai/wiki/Commands#automation-with-rules-and-signals), exemplo a Calculatora, eu não quero que entre na grid do yabai, então eu vou desabilitar o yabai para o aplicativo.
 
-```help
+```bash
 # Desabilitando a Calculadora
 yabai -m rule --add app="^Calculator$" manage=off
 ```
 outros exemplos
-```help
+```bash
 # Disable specific apps
 
 yabai -m rule --add app="^System Settings$" manage=off
@@ -88,7 +88,7 @@ creio que isso seja o basico para começar a brincar com yabai. agora vamos para
 
 ## explicando alguns comandos
 
-```help
+```bash
 # muda o foco da janela
 yabai -m window --focus south
 yabai -m window --focus north
@@ -136,7 +136,7 @@ SKHD é um hotkey para OSX, ele vai nos ajudar a configurar teclas para executar
 
 vamos olhar a documentação do [skhd](https://github.com/koekeishiya/skhd) pois tem uma instalação muito simples.
 
-```help
+```bash
 # com homebrew
   brew install koekeishiya/formulae/skhd
   skhd --start-service
@@ -150,7 +150,7 @@ vamos olhar a documentação do [skhd](https://github.com/koekeishiya/skhd) pois
 ## configurando o skhd
 criei um arquivo `~/.skhdrc` na home e vamos para as configuraçōes
 
-```help
+```bash
 # vamos fazer um configuração como teste
 # config de start e stop do serviço do yabai
 ctrl + alt - q : yabai --stop-service;osascript -e 'display notification "yabai stop service 🛑"';
@@ -159,7 +159,7 @@ ctrl + alt - s : yabai --start-service;osascript -e 'display notification "yabai
 
 vemos acima um padrao, `atalho : comando;` é basicamente isso.
 vamos fazer outra atalho
-```help
+```bash
 # quando såo teclas como shift,ctrl,alt usamos `+` para concatenar eles e `-` para definir a tecla final
 shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 ```
