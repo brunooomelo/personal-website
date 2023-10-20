@@ -1,0 +1,181 @@
+---
+title: 'Trabalhando com janelas com yabai'
+publishedAt: '2023-10-20'
+summary: 'Instalando e configurando yabai com skhd e esquecer o Rectangle'
+---
+
+Após um bom tempo criando coragem para escrever para meu blog, es aqui meu primeiro post. Este é meu primeiro post e espero que goste e ja me desculpo por erros basicos do portugues.
+
+## Rectangle e seus problemas
+
+Quem já instalou Rectangle no OSX, sabe a tristeza de ficar arrumando as janelas apos mexer nelas, ficar ajustando milimetricamente para ficar com espacamento ou quando precisa alterar o layout e hoje você vai encontrar o substituto e nunca mais troca-lo.
+
+## Yabai
+
+Eu lhe apresento [yabai](https://github.com/koekeishiya/yabai) seu novo gerenciador de janelas, então vamos entender como ele funciona
+
+O Yabai é um organizador de janelas que vai substituir o famoso Rectangle. Ele permite redimensionar, mover e dividir janelas tipo o que o TMUX faz com as janelas do terminal. E também vamos personalizá-lo com atalhos para ficar melhor adaptação. 
+
+## Instalando yabai
+
+vou deixar a instalação com você, segue o passo a passo da [documentação](https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection)
+
+após tudo configurado corretamente, vamos para o que realmente nos interessa.
+
+## Configurando o yabai
+
+Primeiramente temos dois tipos de [layout no yabai](https://github.com/koekeishiya/yabai/wiki/Configuration#layout), bsp é o modo normal/gerenciavel e o modo float(flutuante) este modo vai sobrepor tudo, você vai entender isso mais para frente.
+```bash
+# layout bsp ou float (default:float)
+yabai -m config layout bsp
+```
+vamos configurar aonde vai nascer as janelas, temos first_child ou second_child, first_child a janela vai aparecer a esquerda na horizontal e em cima na vertical, e o second_child vai nascer a direita na horizontal e abaixo na vertical, eu prefiro a opção `second_child`;
+    
+```bash
+# window spawn
+yabai -m config window_placement second_child
+```
+agora [padding](https://github.com/koekeishiya/yabai/wiki/Configuration#padding-and-gaps) basico entre as janelas, usei a base de 8px (ahoo UI DESIGNER!)
+
+```bash
+# padding sobre a tela
+yabai -m config top_padding 8
+yabai -m config bottom_padding 8
+yabai -m config left_padding 8
+yabai -m config right_padding 8
+
+# padding entre as janelas
+yabai -m config window_gap 8
+```
+algumas configurações de mouse no yabai
+```bash
+# o mouse segue o foco quando troca de janela (default: off)
+yabai -m config mouse_follows_focus on
+
+# definir o modifier pro mouse
+yabai -m config mouse_modifier alt
+
+# modifier + botão esquerdo + arrastar (drag), move a janela
+yabai -m config mouse_action1 move
+
+# modifier + botão direito + arrastar (drag), aumenta/diminiu a janela
+yabai -m config mouse_action2 resize
+
+# definindo ação de swap
+yabai -m mouse_drop_action swap
+```
+
+tem algumas [configurações de exceção](https://github.com/koekeishiya/yabai/wiki/Commands#automation-with-rules-and-signals), exemplo a Calculatora, eu não quero que entre na grid do yabai, então eu vou desabilitar o yabai para o aplicativo.
+
+```bash
+# Desabilitando a Calculadora
+yabai -m rule --add app="^Calculator$" manage=off
+```
+outros exemplos
+```bash
+# Disable specific apps
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Karabiner-Elements$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^OpenVPN Connect$" manage=off
+yabai -m rule --add label="Software Update" title="Software Update" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+```
+creio que isso seja o basico para começar a brincar com yabai. agora vamos para os comandos de trocar, transferir, inverter janelas e outros.
+
+## Explicando alguns comandos
+
+```bash
+# muda o foco da janela
+yabai -m window --focus south
+yabai -m window --focus north
+yabai -m window --focus west
+yabai -m window --focus east
+
+# muda o foco da janela
+yabai -m display --focus west
+yabai -m display --focus east
+
+# gira todo o espaço 270 graus
+yabai -m space --rotate 270
+
+# troca o lado das janelas na vertical
+yabai -m space --mirror x-axis
+
+# troca o lado das janelas na horizontal
+yabai -m space --mirror y-axis
+
+# troca a janela para float (ignora a grid tipo um absolute do css)
+yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# troca a janela para fullscreen
+yabai -m window --toggle zoom-fullscreen
+
+# deixa todas janelas no mesmo tamanho
+yabai -m space --balance
+
+# troca a janela para o lado selecionado baixo(south), cima(north), esquerda(west) ou direita(east) mantendo o tamanho da janela trocada
+yabai -m window --swap south
+
+# move a janela atual para a proxima (next) ou anterior (prev)
+yabai -m window --space prev
+yabai -m window --space next
+
+```
+
+aaah !! mas eu vou precisar ficar digitando os comandos? e agora eu lhe apresento o skhd
+
+## Quem é o skhd?
+
+SKHD é um hotkey para OSX, ele vai nos ajudar a configurar teclas para executar as funçōes acima
+
+## Instalando skhd
+
+vamos olhar a documentação do [skhd](https://github.com/koekeishiya/skhd) pois tem uma instalação muito simples.
+
+```bash
+# com homebrew
+  brew install koekeishiya/formulae/skhd
+  skhd --start-service
+
+# com git clone
+  git clone https://github.com/koekeishiya/skhd
+  make install      # release version
+  make              # debug version
+```
+
+## Configurando o skhd
+criei um arquivo `~/.skhdrc` na home e vamos para as configuraçōes
+
+```bash
+# vamos fazer um configuração como teste
+# config de start e stop do serviço do yabai
+ctrl + alt - q : yabai --stop-service;osascript -e 'display notification "yabai stop service 🛑"';
+ctrl + alt - s : yabai --start-service;osascript -e 'display notification "yabai start service 🔥"';
+```
+
+vemos acima um padrao, `atalho : comando;` é basicamente isso.
+vamos fazer outra atalho
+```bash
+# quando såo teclas como shift,ctrl,alt usamos `+` para concatenar eles e `-` para definir a tecla final
+shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+```
+após adicionar e vamos utilizar o comando `yabai --reload-service` no terminal e testaremos `shift+alt t` e VUHALA 🪄🔥
+
+sua janela está no modo Flutuante e se voce apertar novamente o atalho, a janela vai voltar para o grid.
+
+Agora é só brincar com isso e gerar seus atalhos.
+
+## Bônus
+vou deixar minha configuração para você ter uma base e ajustar suas configuraçōes como desejar.
+
+[.skhdrc](https://github.com/brunooomelo/dotfiles/blob/main/skhd/.skhdrc)
+
+Espero que tenha lhe ajudado.
+Até mais tarde, vou ali e volto quando eu conseguir sair do vim
+
+ctrl + c
+...exit

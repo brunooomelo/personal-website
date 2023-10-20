@@ -43,7 +43,9 @@ const CustomLink = (props: any) => {
   }
 
   if (href.startsWith("#")) {
-    return <a {...props} className={className} />;
+    return <a {...props} className={className}>
+      {props.children}
+    </a>
   }
 
   return (
@@ -52,7 +54,9 @@ const CustomLink = (props: any) => {
       rel="noopener noreferrer"
       {...props}
       className={className}
-    />
+    >
+      {props.children}
+    </a>
   );
 };
 
@@ -67,8 +71,8 @@ const PostLayout = (content: Content) => {
     <>
       <NextSeo title={content.title} description={content.summary} />
       <Header />
-      <article className="py-8 prose prose-quoteless prose-neutral dark:prose-invert">
-        <div className="mb-8">
+      <article className="py-8 prose prose-quoteless prose-neutral prose-invert text-white">
+        <div className="mb-8 text-white">
           <button
             onClick={() => router.back()}
             className="mb-8 flex gap-1 px-1 text-sm underline"
@@ -83,7 +87,7 @@ const PostLayout = (content: Content) => {
               locale: ptBR,
             })}
           </time>
-          <h1 className="text-3xl font-bold">{content.title}</h1>
+          <h1 className="text-4xl font-bold text-white">{content.title}</h1>
         </div>
 
         <MDXContent
