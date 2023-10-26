@@ -19,18 +19,18 @@ export default function Blog() {
   const getPosts = async () => {
     setLoading(true);
     const posts = allContents.sort((a, b) =>
-      compareDesc(new Date(a.publishedAt), new Date(b.publishedAt))
+      compareDesc(new Date(a.publishedAt), new Date(b.publishedAt)),
     );
     const getPostsView: { postId: string; view_count: number }[] =
       await Promise.all(
         posts.map((post) =>
-          fetch(`/api/postview?id=${post._id}`).then((res) => res.json())
-        )
+          fetch(`/api/postview?id=${post._id}`).then((res) => res.json()),
+        ),
       );
 
     const postsWithViews = posts.map((post) => {
       const postView = getPostsView.find(
-        (postView) => postView?.postId === post._id
+        (postView) => postView?.postId === post._id,
       );
       return {
         ...post,
@@ -47,12 +47,15 @@ export default function Blog() {
   }, []);
   return (
     <>
-      <NextSeo title="Bruno Melo - Blog" description="" />
+      <NextSeo
+        title="Bruno Melo - Blog"
+        description="Meu blog onde eu irei comentar sobre tecnologias, frameworks, hobbies e outras coisas"
+      />
       <Header />
       <div className="flex flex-col gap-8">
-        <h2 className="text-xl leading-7 tracking-tighter">
+        <h1 className="text-xl leading-7 tracking-tighter">
           Todos os meus posts 📝
-        </h2>
+        </h1>
 
         {!!loading && (
           <div className="flex flex-col gap-2">
