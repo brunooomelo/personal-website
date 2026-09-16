@@ -25,6 +25,13 @@ export default {
           950: "#0A0A0A", // fundo da página
         },
       },
+      // O `border` sem cor caía no borderColor.DEFAULT do Tailwind, que é
+      // gray-200 (#E5E7EB, azulado). Isso pintava de azul-acinzentado a borda
+      // do badge "Archived" e a do link do 404 — duas bordas de 1px que
+      // nenhuma classe do código declarava.
+      borderColor: ({ theme }: { theme: (p: string) => string }) => ({
+        DEFAULT: theme("colors.ink.500"),
+      }),
       typography: {
         quoteless: {
           css: {
