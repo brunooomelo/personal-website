@@ -2,54 +2,84 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { compareDesc, format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { allContents, Content } from "@contentlayer/generated";
+import { allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
+import { absoluteUrl } from "@/config/site";
 import { useEffect, useState } from "react";
 
-export const generateStaticParams = async () =>
-  allContents.map((post) => ({ slug: post._raw.flattenedPath }));
-
-type ContentWithViews = Content & {
-  views: number;
+type PostSummary = {
+  _id: string;
+  title: string;
+  publishedAt: string;
+  url: string;
 };
-export default function Blog() {
-  const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState<ContentWithViews[]>([]);
 
-  const getPosts = async () => {
-    setLoading(true);
-    const posts = allContents.sort((a, b) =>
+type BlogProps = {
+  posts: PostSummary[];
+};
+
+// A lista vem pronta do build: o HTML já sai com os posts, sem depender de
+// nenhuma requisição. As views são carregadas depois, sem bloquear a listagem.
+export const getStaticProps = async () => {
+  const posts: PostSummary[] = allContents
+    .sort((a, b) =>
       compareDesc(new Date(a.publishedAt), new Date(b.publishedAt)),
-    );
-    const getPostsView: { postId: string; view_count: number }[] =
-      await Promise.all(
-        posts.map((post) =>
-          fetch(`/api/postview?id=${post._id}`).then((res) => res.json()),
-        ),
-      );
+    )
+    .map(({ _id, title, publishedAt, url }) => ({
+      _id,
+      title,
+      publishedAt,
+      url,
+    }));
 
-    const postsWithViews = posts.map((post) => {
-      const postView = getPostsView.find(
-        (postView) => postView?.postId === post._id,
-      );
-      return {
-        ...post,
-        views: postView?.view_count || 0,
-      } as ContentWithViews;
-    });
+  return { props: { posts } };
+};
 
-    setPosts(postsWithViews);
-    setLoading(false);
-  };
+export default function Blog({ posts }: BlogProps) {
+  const [views, setViews] = useState<Record<string, number> | null>(null);
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    let active = true;
+
+    const getViews = async () => {
+      const results = await Promise.allSettled(
+        posts.map(async (post) => {
+          const res = await fetch(`/api/postview?id=${post._id}`);
+          // 404 = post ainda sem views; qualquer outro erro não derruba o resto.
+          if (!res.ok && res.status !== 404) {
+            throw new Error(`Falha ao buscar views de ${post._id}`);
+          }
+          const data: { postId: string; view_count: number } | null =
+            await res.json();
+          return [post._id, data?.view_count ?? 0] as const;
+        }),
+      );
+
+      if (!active) return;
+
+      setViews(
+        Object.fromEntries(
+          results.flatMap((result) =>
+            result.status === "fulfilled" ? [result.value] : [],
+          ),
+        ),
+      );
+    };
+
+    getViews();
+
+    return () => {
+      active = false;
+    };
+  }, [posts]);
+
   return (
     <>
       <NextSeo
         title="Bruno Melo - Blog"
         description="Meu blog onde eu irei comentar sobre tecnologias, frameworks, hobbies e outras coisas"
+        canonical={absoluteUrl("/blog")}
+        openGraph={{ url: absoluteUrl("/blog") }}
       />
       <Header />
       <div className="flex flex-col gap-8">
@@ -57,46 +87,32 @@ export default function Blog() {
           Todos os meus posts 📝
         </h1>
 
-        {!!loading && (
+        {!posts.length ? (
+          <h2 className="text-xl leading-7 tracking-tighter">
+            Não tem posts ainda, posts em construção 🚨👷🏽🚧
+          </h2>
+        ) : (
           <div className="flex flex-col gap-2">
-            <div className="animate-pulse flex space-x-4">
-              <div className="flex-1 space-y-6 py-1">
-                <div className="space-y-3">
-                  <div className="grid grid-cols-8 gap-4">
-                    <div className="h-5 bg-[#24292F] rounded col-span-6"></div>
-                  </div>
-                  <div className="grid grid-cols-8 gap-4">
-                    <div className="h-5 bg-[#24292F] rounded col-span-1"></div>
-                    <div className="h-5 bg-[#24292F] rounded col-span-1"></div>
-                    <div className="h-5 bg-[#24292F] rounded col-span-2"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {posts.map((post) => (
+              <ContentCard
+                key={post._id}
+                post={post}
+                views={views?.[post._id] ?? null}
+              />
+            ))}
           </div>
-        )}
-        {!loading && (
-          <>
-            {!posts.length && (
-              <h3 className="text-xl leading-7 tracking-tighter">
-                Não tem posts ainda, posts em contrução 🚨👷🏽🚧
-              </h3>
-            )}
-            {!!posts.length && (
-              <div className="flex flex-col gap-2">
-                {posts.map((post, idx) => (
-                  <ContentCard key={idx} {...post} />
-                ))}
-              </div>
-            )}
-          </>
         )}
       </div>
     </>
   );
 }
 
-function ContentCard(content: ContentWithViews) {
+type ContentCardProps = {
+  post: PostSummary;
+  views: number | null;
+};
+
+function ContentCard({ post, views }: ContentCardProps) {
   const incrementPost = () =>
     fetch("/api/postview", {
       method: "POST",
@@ -104,7 +120,7 @@ function ContentCard(content: ContentWithViews) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: content._id,
+        id: post._id,
       }),
     });
 
@@ -112,25 +128,25 @@ function ContentCard(content: ContentWithViews) {
     <div className="flex flex-col gap-1">
       <h2 className="">
         <Link
-          href={content.url}
+          href={post.url}
           onClick={incrementPost}
           className="text-cyan-400 hover:text-cyan-200"
         >
-          {content.title}
+          {post.title}
         </Link>
       </h2>
       <div className="flex gap-4 align-center">
         <time
-          dateTime={content.publishedAt}
+          dateTime={post.publishedAt}
           className="mb-2 block text-xs text-gray-600"
         >
-          {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
+          {format(parseISO(post.publishedAt), "LLLL d, yyyy", {
             locale: ptBR,
           })}
         </time>
         <span className="block text-xs text-gray-600">-</span>
         <span className="block text-xs text-gray-600">
-          {content.views} visualizações
+          {views ?? "—"} visualizações
         </span>
       </div>
     </div>
