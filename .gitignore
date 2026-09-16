@@ -39,3 +39,7 @@ next-env.d.ts
 
 # contentlayer
 .contentlayer
+
+# next-sitemap (gerado no postbuild)
+/public/sitemap.xml
+/public/robots.txt

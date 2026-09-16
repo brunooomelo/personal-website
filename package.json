@@ -6,9 +6,9 @@
     "dev": "next dev",
     "prebuild": "contentlayer build",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint",
-    "generate-sitemap": "next-sitemap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.0.6",
