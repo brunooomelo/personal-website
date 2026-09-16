@@ -10,6 +10,7 @@ import { format, parseISO } from "date-fns";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Content, allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
+import { absoluteUrl } from "@/config/site";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = allContents.map((post) => ({
@@ -69,7 +70,19 @@ const PostLayout = (content: Content) => {
   const MDXContent = useMDXComponent(content.body.code);
   return (
     <>
-      <NextSeo title={content.title} description={content.summary} />
+      <NextSeo
+        title={content.title}
+        description={content.summary}
+        canonical={absoluteUrl(content.url)}
+        openGraph={{
+          url: absoluteUrl(content.url),
+          type: "article",
+          article: {
+            publishedTime: content.publishedAt,
+            authors: ["Bruno Melo"],
+          },
+        }}
+      />
       <Header />
       <article className="py-8 prose prose-quoteless prose-neutral prose-invert text-white">
         <div className="mb-8 text-white">

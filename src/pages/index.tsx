@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { Technologies } from "@/components/technologies";
 import { CompanyWorked } from "@/components/companies-worked";
 import { Projects } from "@/components/projects";
+import { absoluteUrl } from "@/config/site";
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       <NextSeo
         title="Bruno Melo - Home"
         description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS."
+        canonical={absoluteUrl("/")}
+        openGraph={{ url: absoluteUrl("/") }}
       />
       <Header />
       <h1 className="text-xl leading-7 tracking-tighter">

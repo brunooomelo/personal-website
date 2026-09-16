@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import UsesJSON from "../../public/uses.json";
 import { NextSeo } from "next-seo";
+import { absoluteUrl } from "@/config/site";
 
 const Uses = () => {
   return (
@@ -8,6 +9,8 @@ const Uses = () => {
       <NextSeo
         title="Bruno Melo - My Setup"
         description="My Setup é onde você ira conhecer meu setup, meus aplicativos e algumas curiosidades sobre meu ambiente de trabalho e hobby."
+        canonical={absoluteUrl("/uses")}
+        openGraph={{ url: absoluteUrl("/uses") }}
       />
       <Header />
       <h1>Meu Setup</h1>
