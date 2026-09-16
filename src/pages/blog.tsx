@@ -83,14 +83,10 @@ export default function Blog({ posts }: BlogProps) {
       />
       <Header />
       <div className="flex flex-col gap-8">
-        <h1 className="text-xl leading-7 tracking-tighter">
-          Todos os meus posts 📝
-        </h1>
+        <h1>Todos os meus posts 📝</h1>
 
         {!posts.length ? (
-          <h2 className="text-xl leading-7 tracking-tighter">
-            Não tem posts ainda, posts em construção 🚨👷🏽🚧
-          </h2>
+          <h2>Não tem posts ainda, posts em construção 🚨👷🏽🚧</h2>
         ) : (
           <div className="flex flex-col gap-2">
             {posts.map((post) => (
@@ -126,7 +122,7 @@ function ContentCard({ post, views }: ContentCardProps) {
 
   return (
     <div className="flex flex-col gap-1">
-      <h2 className="">
+      <h2>
         <Link
           href={post.url}
           onClick={incrementPost}

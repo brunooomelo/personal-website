@@ -13,7 +13,7 @@ export default function Guestbook() {
   const { isLoading, data: comments } = useQuery("comments", () =>
     fetch("/api/guestbook")
       .then((res) => res.json())
-      .then((res) => res.docs)
+      .then((res) => res.docs),
   );
 
   return (
@@ -25,9 +25,7 @@ export default function Guestbook() {
         openGraph={{ url: absoluteUrl("/guestbook") }}
       />
       <Header />
-      <h1 className="text-xl leading-7 tracking-tighter">
-        Bem-vindo ao meu Guestbook 📕
-      </h1>
+      <h1>Bem-vindo ao meu Guestbook 📕</h1>
 
       {status === "unauthenticated" && (
         <button

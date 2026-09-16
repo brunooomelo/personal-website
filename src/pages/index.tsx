@@ -18,32 +18,31 @@ export default function Home() {
         openGraph={{ url: absoluteUrl("/") }}
       />
       <Header />
-      <h1 className="text-xl leading-7 tracking-tighter">
-        Prazer, Meu nome é Bruno Melo 👋🏽
-      </h1>
-      <h2 className="leading-6">
-        {" "}
-        Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do{" "}
-        <Link
-          href="https://mulesstudio.vercel.app"
-          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Mules Studio
-        </Link>{" "}
-        é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
-        estou construindo o{" "}
-        <Link
-          href="https://figurinhaszap.com"
-          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Figurinhas
-        </Link>
-        , uma plataforma de criação de figurinhas de Whatsapp online e grátis.
-      </h2>
+      <div className="flex flex-col gap-3">
+        <h1>Prazer, Meu nome é Bruno Melo 👋🏽</h1>
+        <p>
+          Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do{" "}
+          <Link
+            href="https://mulesstudio.vercel.app"
+            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mules Studio
+          </Link>{" "}
+          é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
+          estou construindo o{" "}
+          <Link
+            href="https://figurinhaszap.com"
+            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Figurinhas
+          </Link>
+          , uma plataforma de criação de figurinhas de Whatsapp online e grátis.
+        </p>
+      </div>
       {/* <div className="columns-2 sm:columns-3 gap-4 my-8">
         <div className="relative h-40 mb-4">
           <Image
@@ -109,31 +108,37 @@ export default function Home() {
           />
         </div>
       </div> */}
-      <p className="leading-6">
-        Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da
-        minha jornada como desenvolvedor:
-      </p>
-      <Technologies />
+      <div className="flex flex-col gap-3">
+        <p>
+          Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da
+          minha jornada como desenvolvedor:
+        </p>
+        <Technologies />
+      </div>
 
-      <p className="leading-6">
-        já trabalhei em empresas como desenvolvedor backend e frontend e até
-        como UI designer
-      </p>
-      <CompanyWorked />
-      <p className="leading-6">
-        Sou apaixonado em side-projects e{" "}
-        <Link
-          aria-label="Conheça mais sobre o build in public no twitter"
-          href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click"
-          className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          #BuildinPublic
-        </Link>
-        . Alguns projetos ainda estão ativos e outros já foram descontinuados.
-      </p>
-      <Projects />
+      <div className="flex flex-col gap-3">
+        <p>
+          já trabalhei em empresas como desenvolvedor backend e frontend e até
+          como UI designer
+        </p>
+        <CompanyWorked />
+      </div>
+      <div className="flex flex-col gap-3">
+        <p>
+          Sou apaixonado em side-projects e{" "}
+          <Link
+            aria-label="Conheça mais sobre o build in public no twitter"
+            href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click"
+            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            #BuildinPublic
+          </Link>
+          . Alguns projetos ainda estão ativos e outros já foram descontinuados.
+        </p>
+        <Projects />
+      </div>
       <Footer />
     </>
   );
