@@ -1,70 +1,101 @@
 import Link from "next/link";
-import { FiArrowUpRight } from "react-icons/fi";
 
-const projects = [
+const link =
+  "underline decoration-ink-500 underline-offset-4 transition-colors hover:decoration-ink-50 focus-visible:decoration-ink-50";
+
+type Project = {
+  title: string;
+  url: string;
+  ariaLabel: string;
+  status: string;
+  description: string;
+  // O número é o que separa "fiz um projeto" de "fiz um projeto que alguém
+  // usou", então ele tem peso próprio na hierarquia.
+  highlight: string;
+  outcome: string;
+};
+
+const projects: Project[] = [
   {
-    ariaLabel: "Conheça mais sobre meu orçamento simples",
-    url: "https://figurinhaszap.com",
     title: "Figurinhas",
+    url: "https://figurinhaszap.com",
+    ariaLabel: "Conheça mais sobre o Figurinhas, gerador de figurinhas de WhatsApp",
+    status: "encerrado",
     description:
-      "Gerador de figurinhas de WhatsApp online e sem precisar de aplicativo.",
-    isArchived: false,
+      "Gerador de figurinhas de WhatsApp que rodava no navegador, sem instalar nada.",
+    highlight:
+      "Na primeira semana de lançamento saíram mais de 2 mil figurinhas.",
+    outcome:
+      "Desliguei depois. Entrou bastante gente, mas não tinha produto ali. A pessoa fazia a figurinha e não tinha motivo nenhum pra voltar.",
   },
   {
-    ariaLabel:
-      "Conheça mais sobre o Mules Studio, NFT de Mulas na Blockchain da Fantom",
-    url: "https://mulesstudio.vercel.app",
     title: "Mules Studio",
-    description: "Uma comunidade NFT de Mulas na Blockchain da Fantom",
-    isArchived: false,
-  },
-  {
+    url: "https://mulesstudio.vercel.app",
     ariaLabel:
-      "Conheça mais sobre um projeto arquivo de uma SDK do PicPay em Javascript",
-    url: "https://github.com/brunooomelo/picpay-js",
-    title: "Picpay-js",
-    description: "Uma SDK em javascript para API Rest do PicPay Ecommerce",
-    isArchived: true,
-  },
-  {
-    ariaLabel:
-      "Conheça mais sobre um projeto arquivado de uma CLI de resultados da loteria brasileira",
-    url: "https://github.com/brunooomelo/lottery",
-    title: "Lottery",
-    description: "CLI para receber resultados da Loteria Brasileira",
-    isArchived: true,
+      "Conheça mais sobre o Mules Studio, comunidade de NFT na blockchain da Fantom",
+    status: "encerrado",
+    description:
+      "Uma comunidade de NFT de mulas na blockchain da Fantom. Eu escrevi o contrato, montei o mint e fiz o site.",
+    highlight: "Vendemos 600 dos 1000 NFTs.",
+    outcome: "Acabou quando o mercado de NFT esfriou.",
   },
 ];
 
 export const Projects = () => (
   <section className="flex flex-col border-b border-ink-500">
     {projects.map((project) => (
-      <Link
+      <div
         key={project.title}
-        aria-label={project.ariaLabel}
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-start gap-4 border-t border-ink-500 py-5"
+        className="flex flex-col gap-2 border-t border-ink-500 py-5"
       >
-        <div className="flex flex-1 flex-col gap-2">
-          <div className="flex items-center gap-3">
-            <h2 className="transition-colors group-hover:text-ink-300">
+        <div className="flex items-center gap-3">
+          <h3>
+            <Link
+              aria-label={project.ariaLabel}
+              href={project.url}
+              className={link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {project.title}
-            </h2>
-            {project.isArchived && (
-              <span className="rounded border px-2 font-mono text-sm text-ink-300">
-                Archived
-              </span>
-            )}
-          </div>
-          <p className="text-ink-300">{project.description}</p>
+            </Link>
+          </h3>
+          <span className="font-mono text-xs uppercase tracking-wide text-ink-400">
+            {project.status}
+          </span>
         </div>
-        <FiArrowUpRight
-          size={24}
-          className="mt-1 shrink-0 text-ink-400 transition-colors group-hover:text-ink-50"
-        />
-      </Link>
+        <p className="text-ink-300">{project.description}</p>
+        <p className="font-semibold">{project.highlight}</p>
+        <p className="text-ink-300">{project.outcome}</p>
+      </div>
     ))}
+
+    {/* Os dois projetos pequenos numa linha só: dar a eles o mesmo peso dos de
+        cima achataria a hierarquia. */}
+    <div className="border-t border-ink-500 py-5">
+      <p className="text-ink-300">
+        Tem mais duas coisas antigas no meu GitHub. O{" "}
+        <Link
+          aria-label="Veja o picpay-js no GitHub"
+          href="https://github.com/brunooomelo/picpay-js"
+          className={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          picpay-js
+        </Link>{" "}
+        é uma SDK em JavaScript pra API do PicPay, e o{" "}
+        <Link
+          aria-label="Veja o Lottery no GitHub"
+          href="https://github.com/brunooomelo/lottery"
+          className={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Lottery
+        </Link>{" "}
+        é uma CLI que puxa resultado da loteria. As duas paradas.
+      </p>
+    </div>
   </section>
 );

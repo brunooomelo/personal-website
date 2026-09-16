@@ -10,7 +10,7 @@ const config: DefaultSeoProps = {
     locale: "pt_BR",
     siteName: "Bruno Melo Personal Website",
     description:
-      "Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS",
+      "Desenvolvedor fullstack JavaScript. Escrevo sobre os bugs que me custaram tempo demais, e conto o que eu construí e o que eu desliguei.",
     images: [
       {
         url: `${siteUrl}/home/cover.png`,

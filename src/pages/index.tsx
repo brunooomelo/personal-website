@@ -1,144 +1,193 @@
 import Link from "next/link";
 import { NextSeo } from "next-seo";
+import { compareDesc, format, parseISO } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+import { allContents } from "@contentlayer/generated";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Technologies } from "@/components/technologies";
-import { CompanyWorked } from "@/components/companies-worked";
 import { Projects } from "@/components/projects";
 import { absoluteUrl } from "@/config/site";
 
-export default function Home() {
+// Link em texto corrido: sublinhado discreto em vez de cor. A paleta do site é
+// uma rampa de cinza neutra, e o cyan-400 que estava aqui era a única cor
+// cromática da página inteira.
+const link =
+  "underline decoration-ink-500 underline-offset-4 transition-colors hover:decoration-ink-50 focus-visible:decoration-ink-50";
+
+type LatestPost = {
+  title: string;
+  publishedAt: string;
+  url: string;
+};
+
+type HomeProps = {
+  latestPost: LatestPost | null;
+};
+
+// O último post entra no HTML no build. A home é a porta de entrada do site e
+// o blog só existe pra quem clica em "BLOG" no menu — aqui ele aparece sem
+// depender de requisição nenhuma.
+export const getStaticProps = async () => {
+  const [latest] = allContents.sort((a, b) =>
+    compareDesc(new Date(a.publishedAt), new Date(b.publishedAt)),
+  );
+
+  const latestPost: LatestPost | null = latest
+    ? {
+        title: latest.title,
+        publishedAt: latest.publishedAt,
+        url: latest.url,
+      }
+    : null;
+
+  return { props: { latestPost } };
+};
+
+export default function Home({ latestPost }: HomeProps) {
   return (
     <>
       <NextSeo
-        title="Bruno Melo - Home"
-        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS."
+        title="Bruno Melo — desenvolvedor fullstack JavaScript"
+        description="Desenvolvedor fullstack JavaScript. Hoje no time de WhatsApp da Monest, cuidando de fila, Redis e observabilidade. Antes disso, sistema de frete, processador de nota fiscal e alguns projetos meus."
         canonical={absoluteUrl("/")}
         openGraph={{ url: absoluteUrl("/") }}
       />
       <Header />
-      <div className="flex flex-col gap-3">
-        <h1>Prazer, Meu nome é Bruno Melo 👋🏽</h1>
+
+      <h1>Bruno Melo, desenvolvedor fullstack JavaScript</h1>
+
+      <section className="flex flex-col gap-5">
+        <h2>Quem sou eu</h2>
         <p>
-          Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do{" "}
+          Sou o Bruno. Comecei mexendo em design, depois fui pro código, e nunca
+          escolhi entre os dois. Até hoje eu desenho as telas que eu programo.
+          Escrevo TypeScript em tudo, uso Node no servidor e Next.js com
+          Tailwind no front, e esse site aqui eu fiz do zero. O{" "}
           <Link
-            href="https://mulesstudio.vercel.app"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
+            aria-label="Veja o código deste site no GitHub"
+            href="https://github.com/brunooomelo/personal-website"
+            className={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Mules Studio
-          </Link>{" "}
-          é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
-          estou construindo o{" "}
-          <Link
-            href="https://figurinhaszap.com"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Figurinhas
+            código está no GitHub
           </Link>
-          , uma plataforma de criação de figurinhas de Whatsapp online e grátis.
+          .
         </p>
-      </div>
-      {/* <div className="columns-2 sm:columns-3 gap-4 my-8">
-        <div className="relative h-40 mb-4">
-          <Image
-            alt="Me speaking on stage at React Summit about the future of Next.js"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-80 mb-4 sm:mb-0">
-          <Image
-            alt="Me, Lydia, and Delba filming the Next.js Conf keynote"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover object-[-16px] sm:object-center"
-          />
-        </div>
-        <div className="relative h-40 sm:h-80 sm:mb-4">
-          <Image
-            alt="Me standing on stage at Reactathon delivering the keynote"
-            fill
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover object-top sm:object-center"
-          />
-        </div>
-        <div className="relative h-40 mb-4 sm:mb-0">
-          <Image
-            alt="Me standing on stage at SmashingConf giving a talk about my optimism for the web"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-40 mb-4">
-          <Image
-            alt="Me and Guillermo Rauch on stage for Vercel Ship, answering questions from the Next.js community"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-80">
-          <Image
-            alt="My badge on top of a pile of badges from a Vercel meetup we held"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(min-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-      </div> */}
-      <div className="flex flex-col gap-3">
         <p>
-          Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da
-          minha jornada como desenvolvedor:
+          Gosto de construir coisa e soltar pra ver o que acontece. Já lancei
+          coisa que foi bem e desliguei mesmo assim, e já lancei coisa que
+          morreu sozinha. Aprendi mais com as que morreram.
         </p>
-        <Technologies />
-      </div>
+      </section>
 
-      <div className="flex flex-col gap-3">
-        <p>
-          já trabalhei em empresas como desenvolvedor backend e frontend e até
-          como UI designer
-        </p>
-        <CompanyWorked />
-      </div>
-      <div className="flex flex-col gap-3">
-        <p>
-          Sou apaixonado em side-projects e{" "}
-          <Link
-            aria-label="Conheça mais sobre o build in public no twitter"
-            href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            #BuildinPublic
-          </Link>
-          . Alguns projetos ainda estão ativos e outros já foram descontinuados.
-        </p>
+      <section className="flex flex-col gap-5">
+        <h2>O que eu construí</h2>
         <Projects />
-      </div>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2>No trabalho</h2>
+        <p>
+          Hoje eu estou no time de WhatsApp da Monest. A gente manda milhares de
+          mensagens por dia, então boa parte do meu trabalho é cuidar pra fila
+          não entupir e pro Redis e o banco aguentarem o volume. Mexo bastante
+          em observabilidade, que é o que me avisa quando alguma coisa saiu do
+          lugar antes do cliente perceber.
+        </p>
+        <p>
+          Escrevi esse tipo de sistema na mão por muitos anos, quando não tinha
+          IA pra ajudar. Hoje eu escrevo o RFC, escrevo a spec, ajusto o prompt,
+          e a IA implementa. Meu trabalho virou mais decidir o que precisa ser
+          feito do que digitar.
+        </p>
+        {/* TODO: falta a Popstand. Uma frase no mesmo formato das outras, sobre
+            o que foi feito lá, entra no fim deste parágrafo. */}
+        <p>
+          Antes da Monest eu fiz um processador de nota fiscal em Node pra
+          Polowear. Na Kronos eu montei um sistema de busca de informação que
+          puxava dado de crawler e de API, tudo rodando em cima de fila. Na G2L
+          a gente construiu um sistema de frete do zero, olhando o Fretebras
+          como referência, e levou um ano pra ficar de pé. Na Provi eu trabalhei
+          melhorando a vida de quem desenvolvia, arrumando o que travava o time
+          no dia a dia.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2>Fora do trabalho</h2>
+        <p>
+          Montei teclado por muito tempo e parei. Ficou trabalhoso, e chegou uma
+          hora em que todo teclado virou o mesmo teclado. Eu já tinha feito
+          todos os tipos que eu queria ter.
+        </p>
+        <p>
+          Agora estou aprendendo modelagem 3D e pixel art, e mexendo com
+          miniatura. Também gosto de jogo, e de fazer jogo. Tem um protótipo em
+          pé aqui que eu conto depois o que é.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2>Escrevendo</h2>
+        <p>
+          Voltei a escrever no blog. Vou contar os bugs que me custaram tempo
+          demais, começando pelos que eu achei neste site mesmo.
+        </p>
+        {latestPost && (
+          <div className="flex flex-col gap-1">
+            <h3>
+              <Link href={latestPost.url} className={link}>
+                {latestPost.title}
+              </Link>
+            </h3>
+            <time
+              dateTime={latestPost.publishedAt}
+              className="font-mono text-xs text-ink-400"
+            >
+              {format(parseISO(latestPost.publishedAt), "d 'de' LLLL 'de' yyyy", {
+                locale: ptBR,
+              })}
+            </time>
+          </div>
+        )}
+        <p>
+          <Link href="/blog" className={link}>
+            Todos os posts
+          </Link>
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h2>Contato</h2>
+        {/* TODO: se você quiser expor e-mail, troque este parágrafo por
+            "me manda um e-mail: <a href="mailto:...">...</a>". */}
+        <p>
+          Se quiser falar comigo, me chama no{" "}
+          <Link
+            aria-label="Fale comigo no Twitter"
+            href="https://twitter.com/brunooomelo"
+            className={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Twitter
+          </Link>{" "}
+          ou no{" "}
+          <Link
+            aria-label="Fale comigo no LinkedIn"
+            href="https://www.linkedin.com/in/brunooomelo"
+            className={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </Link>
+          .
+        </p>
+      </section>
+
       <Footer />
     </>
   );
