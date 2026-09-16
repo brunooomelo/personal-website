@@ -2,73 +2,56 @@ import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { databaseName } from "./_lib/config";
 
-type Comment = {
+type PostView = {
   postId: string;
   view_count: number;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Comment | null>
+  res: NextApiResponse<PostView | null>
 ) {
   const client = await clientPromise;
   const db = client.db(databaseName);
+  const collection = db.collection<PostView>("postview");
 
   if (req.method === "POST") {
     const { id } = req.body;
-    if (!id) {
+    // Precisa ser string: um objeto aqui viraria operador do Mongo no filtro.
+    if (typeof id !== "string" || !id) {
       return res.status(400).json(null);
     }
 
-    const hasPost = await db.collection("postview").findOne({ postId: id });
-    if (hasPost) {
-      await db.collection("postview").findOneAndUpdate(
-        {
-          postId: id,
-        },
-        {
-          $inc: {
-            view_count: 1,
-          },
-        }
-      );
-
-      return {
-        postId: id,
-        view_count: hasPost.view_count + 1,
-      };
-    }
-
-    await db.collection("postview").insertOne({
-      postId: id,
-      view_count: 1,
-    });
+    // Upsert atômico: cria com view_count 1 ou incrementa o existente, num
+    // único round-trip. O ler-depois-escrever anterior perdia views quando
+    // duas visitas caíam juntas — e não respondia no caminho do update.
+    const result = await collection.findOneAndUpdate(
+      { postId: id },
+      { $inc: { view_count: 1 } },
+      { upsert: true, returnDocument: "after" }
+    );
 
     return res.status(200).json({
       postId: id,
-      view_count: 1,
+      view_count: result.value?.view_count ?? 1,
     });
   }
 
   if (req.method === "GET") {
-    const { id } = req.query;
+    const id = Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
     if (!id) {
-      return res.status(401).json(null);
+      return res.status(400).json(null);
     }
 
-    const postview = await db.collection<Comment>("postview").findOne({
-      postId: id,
-    });
+    const postview = await collection.findOne({ postId: id });
 
-    if (!postview) {
-      return res.status(404).json(null);
-    }
-
+    // Post ainda sem visualizações não é erro: vale zero.
     return res.status(200).json({
-      postId: id as string,
-      view_count: postview.view_count,
+      postId: id,
+      view_count: postview?.view_count ?? 0,
     });
   }
 
-  return res.status(404).json(null);
+  res.setHeader("Allow", "GET, POST");
+  return res.status(405).json(null);
 }

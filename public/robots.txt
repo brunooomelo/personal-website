@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://brunooomelo.vercel.app
-
-# Sitemaps
-Sitemap: https://brunooomelo.vercel.app/sitemap.xml
