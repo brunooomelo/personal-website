@@ -90,11 +90,14 @@ const PostLayout = (content: Content) => {
         <div className="mb-8 text-ink-50">
           <button
             onClick={() => router.back()}
-            className="mb-8 flex gap-1 px-1 text-sm underline"
+            className="mb-8 flex gap-1 px-1 font-mono text-sm underline"
           >
             Voltar
           </button>
-          <time dateTime={content.publishedAt} className="text-xs text-ink-400">
+          <time
+            dateTime={content.publishedAt}
+            className="font-mono text-xs text-ink-400"
+          >
             {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
               locale: ptBR,
             })}

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 type ICompanyData = {
   label: string;
@@ -41,36 +40,14 @@ const companies: ICompanyData[] = [
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.24,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-};
-
-const MotionLink = motion(Link);
 export const CompanyWorked = () => (
-  <motion.section
-    variants={container}
-    initial="hidden"
-    animate="show"
+  <section
     // Mesmo motivo do grid das tecnologias: largura fixa em px + wrap fazia a
     // fileira de logos comecar num x diferente do texto em cada breakpoint.
     className="grid grid-cols-2 justify-items-start gap-x-6 gap-y-8 md:grid-cols-4"
   >
     {companies.map((company) => (
-      <MotionLink
-        variants={item}
-        whileHover={{ scale: 1.03 }}
-        whileFocus={{ scale: 1.03 }}
+      <Link
         key={company.label}
         aria-label={`Conheça mais sobre a ${company.label}`}
         href={company.url}
@@ -86,7 +63,7 @@ export const CompanyWorked = () => (
           // Sem isto o logo de 135px estoura a coluna a 320px de viewport.
           className="h-auto max-w-full"
         />
-      </MotionLink>
+      </Link>
     ))}
-  </motion.section>
+  </section>
 );

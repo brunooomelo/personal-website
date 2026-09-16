@@ -29,7 +29,7 @@ export const Header = () => {
   const { route } = useRouter();
   return (
     <header className="w-full h-14 flex items-center">
-      <ul className="flex gap-4">
+      <ul className="flex gap-4 font-mono">
         {pages.map((page) => (
           <li
             className={`${

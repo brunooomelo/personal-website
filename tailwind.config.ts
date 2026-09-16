@@ -25,6 +25,10 @@ export default {
           950: "#0A0A0A", // fundo da página
         },
       },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
       // O `border` sem cor caía no borderColor.DEFAULT do Tailwind, que é
       // gray-200 (#E5E7EB, azulado). Isso pintava de azul-acinzentado a borda
       // do badge "Archived" e a do link do 404 — duas bordas de 1px que

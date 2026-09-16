@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 
 type Comment = {
@@ -14,37 +13,13 @@ type CommentListProps = {
   ownerId?: string | null;
 };
 
-const item = {
-  hidden: {
-    opacity: 0,
-    x: -50,
-  },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: i * 0.2,
-    },
-  }),
-};
-
-const container = {
-  hidden: {},
-  visible: {},
-};
-
 export const CommentList = ({
   comments,
   isLoading,
   ownerId,
 }: CommentListProps) => {
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="visible"
-      className="flex flex-col space-y-1 mb-4"
-    >
+    <div className="flex flex-col space-y-1 mb-4">
       {isLoading && (
         <div className="animate-pulse flex space-x-4">
           <div className="flex-1 space-y-6 py-1">
@@ -69,10 +44,8 @@ export const CommentList = ({
           </div>
         </div>
       )}
-      {comments?.map((comment, index) => (
-        <motion.div
-          custom={index}
-          variants={item}
+      {comments?.map((comment) => (
+        <div
           className={`flex gap-1 w-full text-sm break-words px-2 ${
             ownerId && ownerId === comment.id
               ? "bg-ink-800 hover:bg-ink-700 rounded"
@@ -91,9 +64,7 @@ export const CommentList = ({
                 {comment.name}:
               </Link>
             ) : (
-              <span className="text-ink-300">
-                {comment.username}:
-              </span>
+              <span className="text-ink-300">{comment.username}:</span>
             )}{" "}
             {comment.comment}{" "}
             {!comment._id && (
@@ -102,8 +73,8 @@ export const CommentList = ({
               </span>
             )}
           </span>
-        </motion.div>
+        </div>
       ))}
-    </motion.div>
+    </div>
   );
 };

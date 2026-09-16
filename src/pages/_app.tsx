@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import { Space_Mono } from "next/font/google";
+import { Inter, Space_Mono } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { DefaultSeo } from "next-seo";
 import { SessionProvider } from "next-auth/react";
@@ -9,7 +9,15 @@ import { SessionProvider } from "next-auth/react";
 import SEO from "../../next-seo.config";
 import { Analytics } from "@/components/analytics";
 
-const font = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] });
+// Mono continua sendo a personalidade do site — títulos, menu, metadados e
+// código. O texto corrido vai para uma sans neutra: monoespaçada cansa em
+// parágrafo longo, e o blog é justamente texto longo.
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
+});
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const queryClient = new QueryClient();
 
 export default function App({
@@ -32,7 +40,7 @@ export default function App({
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
           <main
-            className={`max-w-3xl mx-auto ${font.className} p-6 flex flex-col gap-8`}
+            className={`${sans.variable} ${mono.variable} font-sans max-w-3xl mx-auto p-6 flex flex-col gap-8`}
           >
             <Component {...pageProps} />
           </main>

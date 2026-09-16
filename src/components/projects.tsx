@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 
 const projects = [
@@ -37,33 +36,10 @@ const projects = [
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.24,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-};
-
-const MotionLink = motion(Link);
-
 export const Projects = () => (
-  <motion.section
-    variants={container}
-    initial="hidden"
-    animate="show"
-    className="flex flex-col border-b border-ink-500"
-  >
+  <section className="flex flex-col border-b border-ink-500">
     {projects.map((project) => (
-      <MotionLink
-        variants={item}
+      <Link
         key={project.title}
         aria-label={project.ariaLabel}
         href={project.url}
@@ -77,7 +53,7 @@ export const Projects = () => (
               {project.title}
             </h2>
             {project.isArchived && (
-              <span className="rounded border px-2 text-sm text-ink-300">
+              <span className="rounded border px-2 font-mono text-sm text-ink-300">
                 Archived
               </span>
             )}
@@ -88,7 +64,7 @@ export const Projects = () => (
           size={24}
           className="mt-1 shrink-0 text-ink-400 transition-colors group-hover:text-ink-50"
         />
-      </MotionLink>
+      </Link>
     ))}
-  </motion.section>
+  </section>
 );
