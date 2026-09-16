@@ -1,68 +1,72 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 type ICompanyData = {
-  label: string
-  url: string
-  imgPath: string
-  height: number
-  width: number
-}
+  label: string;
+  url: string;
+  imgPath: string;
+  height: number;
+  width: number;
+};
 
 const companies: ICompanyData[] = [
   {
-    label: 'Provi',
-    url: 'https://provi.com.br',
-    imgPath: '/home/provi.svg',
+    label: "Provi",
+    url: "https://provi.com.br",
+    imgPath: "/home/provi.svg",
     height: 37,
-    width: 125
-  }, {
-    label: 'Popstand',
-    url: 'https://www.linkedin.com/company/popstand',
-    imgPath: '/home/popstand.svg',
+    width: 125,
+  },
+  {
+    label: "Popstand",
+    url: "https://www.linkedin.com/company/popstand",
+    imgPath: "/home/popstand.svg",
     height: 30,
-    width: 135
-  }, {
-    label: 'Logistíca G2L',
-    url: 'https://logisticag2l.com.br',
-    imgPath: '/home/g2l.svg',
+    width: 135,
+  },
+  {
+    label: "Logistíca G2L",
+    url: "https://logisticag2l.com.br",
+    imgPath: "/home/g2l.svg",
     height: 46,
-    width: 96
-  }, {
-    label: 'Polowear',
-    url: 'https://www.polowear.com.br',
-    imgPath: '/home/polowear.svg',
+    width: 96,
+  },
+  {
+    label: "Polowear",
+    url: "https://www.polowear.com.br",
+    imgPath: "/home/polowear.svg",
     height: 24,
-    width: 125
-  }]
-
-
+    width: 125,
+  },
+];
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.24
-    }
-  }
-}
+      staggerChildren: 0.24,
+    },
+  },
+};
 
 const item = {
   hidden: { opacity: 0 },
-  show: { opacity: 1 }
-}
+  show: { opacity: 1 },
+};
 
-const MotionLink = motion(Link)
+const MotionLink = motion(Link);
 export const CompanyWorked = () => (
   <motion.section
     variants={container}
     initial="hidden"
     animate="show"
-    className="flex gap-2 flex-wrap justify-center"
+    // Mesmo motivo do grid das tecnologias: largura fixa em px + wrap fazia a
+    // fileira de logos comecar num x diferente do texto em cada breakpoint.
+    className="grid grid-cols-2 gap-3 md:grid-cols-4"
   >
-    {companies.map(company => (
+    {companies.map((company) => (
       <MotionLink
         variants={item}
         whileHover={{ scale: 1.03 }}
@@ -72,10 +76,17 @@ export const CompanyWorked = () => (
         href={company.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[150px] min-[514px]:w-[200px] sm:w-[250px] md:w-[170px] h-[100px] bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded flex items-center justify-center"
+        className="flex h-[100px] items-center justify-center rounded border border-ink-500 bg-ink-700 p-4 hover:bg-ink-600"
       >
-        <Image src={company.imgPath} alt={`Logo da ${company.label}`} height={company.height} width={company.width} />
+        <Image
+          src={company.imgPath}
+          alt={`Logo da ${company.label}`}
+          height={company.height}
+          width={company.width}
+          // Sem isto o logo de 135px estoura a coluna a 320px de viewport.
+          className="h-auto max-w-full"
+        />
       </MotionLink>
     ))}
   </motion.section>
-)
+);

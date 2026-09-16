@@ -72,8 +72,8 @@ export const Projects = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="flex p-4 items-center bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded">
-          <div className="flex flex-col justify-between flex-1 gap-8">
+        <div className="flex gap-4 p-4 items-center bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded">
+          <div className="flex flex-col justify-between flex-1 gap-2">
             <div className="flex gap-4 flex-1 align-baseline">
               <h2>{project.title}</h2>
               {project.isArchived && (
