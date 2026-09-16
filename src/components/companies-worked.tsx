@@ -64,7 +64,7 @@ export const CompanyWorked = () => (
     animate="show"
     // Mesmo motivo do grid das tecnologias: largura fixa em px + wrap fazia a
     // fileira de logos comecar num x diferente do texto em cada breakpoint.
-    className="grid grid-cols-2 gap-3 md:grid-cols-4"
+    className="grid grid-cols-2 justify-items-start gap-x-6 gap-y-8 md:grid-cols-4"
   >
     {companies.map((company) => (
       <MotionLink
@@ -76,7 +76,7 @@ export const CompanyWorked = () => (
         href={company.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex h-[100px] items-center justify-center rounded border border-ink-500 bg-ink-700 p-4 hover:bg-ink-600"
+        className="flex h-12 items-center opacity-70 transition-opacity hover:opacity-100 focus-visible:opacity-100"
       >
         <Image
           src={company.imgPath}

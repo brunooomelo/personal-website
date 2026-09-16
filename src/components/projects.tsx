@@ -59,31 +59,35 @@ export const Projects = () => (
     variants={container}
     initial="hidden"
     animate="show"
-    className="flex flex-col gap-4"
+    className="flex flex-col border-b border-ink-500"
   >
     {projects.map((project) => (
       <MotionLink
         variants={item}
-        whileHover={{ scale: 1.03 }}
-        whileFocus={{ scale: 1.03 }}
         key={project.title}
         aria-label={project.ariaLabel}
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
+        className="group flex items-start gap-4 border-t border-ink-500 py-5"
       >
-        <div className="flex gap-4 p-4 items-center bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded">
-          <div className="flex flex-col justify-between flex-1 gap-2">
-            <div className="flex gap-4 flex-1 align-baseline">
-              <h2>{project.title}</h2>
-              {project.isArchived && (
-                <span className="border px-2 rounded text-sm">Archived</span>
-              )}
-            </div>
-            <p className="leading-6">{project.description}</p>
+        <div className="flex flex-1 flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <h2 className="transition-colors group-hover:text-ink-300">
+              {project.title}
+            </h2>
+            {project.isArchived && (
+              <span className="rounded border px-2 text-sm text-ink-300">
+                Archived
+              </span>
+            )}
           </div>
-          <FiArrowUpRight size={24} />
+          <p className="text-ink-300">{project.description}</p>
         </div>
+        <FiArrowUpRight
+          size={24}
+          className="mt-1 shrink-0 text-ink-400 transition-colors group-hover:text-ink-50"
+        />
       </MotionLink>
     ))}
   </motion.section>
