@@ -17,6 +17,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* O outline padrão do browser deriva da cor do texto e some em tema escuro:
+   aqui ele computava rgb(16,16,16) sobre um fundo quase igual. Sem cor para
+   sinalizar estado, o foco precisa ser desenhado explicitamente. */
+:focus-visible {
+  @apply outline outline-2 outline-offset-2 outline-ink-50 rounded-sm;
+}
+
+/* Alvos que o teclado alcança mas o mouse não deve contornar. */
+:focus:not(:focus-visible) {
+  @apply outline-none;
+}
+
 [data-rehype-pretty-code-fragment] code {
   @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm;
   counter-reset: line;
