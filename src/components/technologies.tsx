@@ -86,7 +86,7 @@ export const Technologies = () => (
               whileTap={{ scale: 1 }}
               whileFocus={{ scale: 1.15 }}
               tabIndex={0}
-              className="w-[90px] min-[514px]:w-[120px] md:w-[90px] h-[100px] bg-[#262626] hover:bg-[#3e3d3d] border border-[#3D3D3D] rounded flex items-center justify-center"
+              className="w-[90px] min-[514px]:w-[120px] md:w-[90px] h-[100px] bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded flex items-center justify-center"
             >
               <tech.Icon size={52} />
             </motion.div>

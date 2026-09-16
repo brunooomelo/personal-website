@@ -72,7 +72,7 @@ export const CompanyWorked = () => (
         href={company.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[150px] min-[514px]:w-[200px] sm:w-[250px] md:w-[170px] h-[100px] bg-[#262626] hover:bg-[#3e3d3d] border border-[#3D3D3D] rounded flex items-center justify-center"
+        className="w-[150px] min-[514px]:w-[200px] sm:w-[250px] md:w-[170px] h-[100px] bg-ink-700 hover:bg-ink-600 border border-ink-500 rounded flex items-center justify-center"
       >
         <Image src={company.imgPath} alt={`Logo da ${company.label}`} height={company.height} width={company.width} />
       </MotionLink>

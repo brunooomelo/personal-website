@@ -94,7 +94,7 @@ const PostLayout = (content: Content) => {
           </button>
           <time
             dateTime={content.publishedAt}
-            className="text-xs text-gray-600"
+            className="text-xs text-ink-400"
           >
             {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
               locale: ptBR,

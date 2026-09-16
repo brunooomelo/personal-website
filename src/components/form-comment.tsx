@@ -87,14 +87,14 @@ export const CommentForm = ({ session }: CommentFormProps) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
-              className="px-4 py-1.5  block w-full border-neutral-300 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none"
+              className="block w-full rounded-md border border-ink-500 bg-ink-900 px-4 py-1.5 text-ink-50 placeholder:text-ink-400"
               placeholder="Deixe sua mensagem aqui"
             />
           )}
         />
         <button
           type="submit"
-          className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
+          className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-ink-700 hover:bg-ink-600 px-3 py-1.5 text-ink-50"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -117,7 +117,7 @@ export const CommentForm = ({ session }: CommentFormProps) => {
           });
           signOut();
         }}
-        className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6"
+        className="text-xs text-ink-300 hover:text-ink-50 mt-2 mb-6"
         disabled={isLoading}
       >
         Sair do guestbook

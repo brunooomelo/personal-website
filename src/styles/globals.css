@@ -8,53 +8,45 @@
   overflow: visible !important;
 }
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
 html {
   @apply scroll-smooth;
 }
 
 body {
-  background-color: #111010;
-  color: #fff;
+  @apply bg-ink-950 text-ink-50;
   -webkit-font-smoothing: antialiased;
 }
 
 [data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
+  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm;
   counter-reset: line;
   box-decoration-break: clone;
 }
 
 [data-rehype-pretty-code-fragment] > pre {
-  @apply border border-[#333333] bg-[#1c1c1c];
+  @apply border border-ink-500 bg-ink-900;
 }
 
 [data-rehype-pretty-code-title] {
-  @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
+  @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-ink-300 border-ink-500 bg-ink-900;
 }
 [data-rehype-pretty-code-title] + pre {
   @apply mt-0 rounded-t-none;
 }
 
-
 .prose > * {
-  @apply text-white;
+  @apply text-ink-50;
 }
 
 .prose a {
   @apply no-underline;
 }
 .prose pre code {
-  @apply text-neutral-200 rounded-lg bg-[#1c1c1c] border-none;
+  @apply text-ink-50 rounded-lg bg-ink-900 border-none;
 }
 
 .prose code {
-  @apply before:content-[""] after:content-[""] text-white bg-neutral-800 py-0.5 px-1 rounded border border-neutral-400;
+  @apply before:content-[""] after:content-[""] text-ink-50 bg-ink-800 py-0.5 px-1 rounded border border-ink-500;
 }
 pre {
   -ms-overflow-style: none; /* IE and Edge */

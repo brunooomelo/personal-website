@@ -40,7 +40,7 @@ export default function Guestbook() {
             });
             signIn("github");
           }}
-          className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
+          className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-ink-700 hover:bg-ink-600 px-3 py-1.5 text-ink-50"
         >
           <SiGithub className="h-5 w-5" />
           <span className="text-sm font-semibold leading-6">GitHub</span>
@@ -52,10 +52,10 @@ export default function Guestbook() {
           <div className="flex-1 space-y-6 py-1">
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-4">
-                <div className="h-9 bg-[#24292F] rounded col-span-2"></div>
-                <div className="h-9 bg-[#24292F] rounded col-span-1"></div>
+                <div className="h-9 bg-ink-800 rounded col-span-2"></div>
+                <div className="h-9 bg-ink-800 rounded col-span-1"></div>
               </div>
-              <div className="h-2 w-1/4 bg-[#24292F] rounded"></div>
+              <div className="h-2 w-1/4 bg-ink-800 rounded"></div>
             </div>
           </div>
         </div>

@@ -138,14 +138,14 @@ function ContentCard({ post, views }: ContentCardProps) {
       <div className="flex gap-4 align-center">
         <time
           dateTime={post.publishedAt}
-          className="mb-2 block text-xs text-gray-600"
+          className="mb-2 block text-xs text-ink-400"
         >
           {format(parseISO(post.publishedAt), "LLLL d, yyyy", {
             locale: ptBR,
           })}
         </time>
-        <span className="block text-xs text-gray-600">-</span>
-        <span className="block text-xs text-gray-600">
+        <span className="block text-xs text-ink-400">-</span>
+        <span className="block text-xs text-ink-400">
           {views ?? "—"} visualizações
         </span>
       </div>
