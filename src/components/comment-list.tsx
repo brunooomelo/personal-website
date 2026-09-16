@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-type Comment = {
-  _id: string;
+export type Comment = {
+  _id?: string;
   id?: string | null;
   username: string;
   name?: string | null;
@@ -51,7 +51,7 @@ export const CommentList = ({
               ? "bg-ink-800 hover:bg-ink-700 rounded"
               : ""
           }`}
-          key={comment._id}
+          key={comment._id ?? `pendente-${comment.comment}`}
         >
           <span>
             {!!comment.id ? (

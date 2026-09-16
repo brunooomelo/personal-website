@@ -2,7 +2,7 @@ import { NextSeo } from "next-seo";
 import { useSession, signIn } from "next-auth/react";
 import { SiGithub } from "react-icons/si";
 import { Header } from "@/components/header";
-import { CommentList } from "@/components/comment-list";
+import { CommentList, type Comment } from "@/components/comment-list";
 import { useQuery } from "react-query";
 import { CommentForm } from "@/components/form-comment";
 import { event } from "@/utils/gtag";
@@ -10,10 +10,16 @@ import { absoluteUrl } from "@/config/site";
 
 export default function Guestbook() {
   const { data: session, status } = useSession();
-  const { isLoading, data: comments } = useQuery("comments", () =>
-    fetch("/api/guestbook")
-      .then((res) => res.json())
-      .then((res) => res.docs),
+  const { isLoading, data: comments } = useQuery<Comment[]>(
+    "comments",
+    async () => {
+      const res = await fetch("/api/guestbook");
+      // fetch não rejeita em 4xx/5xx: sem isto o react-query considerava a
+      // falha um sucesso e a lista virava `undefined` em silêncio.
+      if (!res.ok) throw new Error("Não foi possível carregar as mensagens.");
+      const body = await res.json();
+      return body.docs ?? [];
+    },
   );
 
   return (
@@ -65,7 +71,7 @@ export default function Guestbook() {
 
       <CommentList
         isLoading={isLoading}
-        comments={comments}
+        comments={comments ?? []}
         ownerId={session?.user?.id}
       />
     </>
