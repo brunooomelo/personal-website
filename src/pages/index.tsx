@@ -99,8 +99,7 @@ export default function Home({ latestPost }: HomeProps) {
         <p>
           Escrevi esse tipo de sistema na mão por muitos anos, quando não tinha
           IA pra ajudar. Hoje eu escrevo o RFC, escrevo a spec, ajusto o prompt,
-          e a IA implementa. Meu trabalho virou mais decidir o que precisa ser
-          feito do que digitar.
+          e a IA implementa.
         </p>
         {/* TODO: falta a Popstand. Uma frase no mesmo formato das outras, sobre
             o que foi feito lá, entra no fim deste parágrafo. */}
