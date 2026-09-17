@@ -60,10 +60,10 @@ export default function Home({ latestPost }: HomeProps) {
       <section className="flex flex-col gap-5">
         <h2>Quem sou eu</h2>
         <p>
-          Sou o Bruno. Comecei mexendo em design, depois fui pro código, e nunca
-          escolhi entre os dois. Até hoje eu desenho as telas que eu programo.
-          Escrevo TypeScript em tudo, uso Node no servidor e Next.js com
-          Tailwind no front, e esse site aqui eu fiz do zero. O{" "}
+          Sou o Bruno. Escrevo TypeScript em tudo, uso Node no servidor e
+          Next.js com Tailwind no front. Nunca fui designer, mas já fiz bastante
+          coisa de design e ainda faço quando precisa. Esse site aqui eu fiz do
+          zero, e o{" "}
           <Link
             aria-label="Veja o código deste site no GitHub"
             href="https://github.com/brunooomelo/personal-website"
@@ -78,7 +78,7 @@ export default function Home({ latestPost }: HomeProps) {
         <p>
           Gosto de construir coisa e soltar pra ver o que acontece. Já lancei
           coisa que foi bem e desliguei mesmo assim, e já lancei coisa que
-          morreu sozinha. Aprendi mais com as que morreram.
+          morreu sozinha.
         </p>
       </section>
 
@@ -94,7 +94,7 @@ export default function Home({ latestPost }: HomeProps) {
           mensagens por dia, então boa parte do meu trabalho é cuidar pra fila
           não entupir e pro Redis e o banco aguentarem o volume. Mexo bastante
           em observabilidade, que é o que me avisa quando alguma coisa saiu do
-          lugar antes do cliente perceber.
+          lugar.
         </p>
         <p>
           Escrevi esse tipo de sistema na mão por muitos anos, quando não tinha
@@ -116,7 +116,7 @@ export default function Home({ latestPost }: HomeProps) {
       </section>
 
       <section className="flex flex-col gap-5">
-        <h2>Fora do trabalho</h2>
+        <h2>Hobbies</h2>
         <p>
           Montei teclado por muito tempo e parei. Ficou trabalhoso, e chegou uma
           hora em que todo teclado virou o mesmo teclado. Eu já tinha feito
@@ -130,11 +130,9 @@ export default function Home({ latestPost }: HomeProps) {
       </section>
 
       <section className="flex flex-col gap-5">
-        <h2>Escrevendo</h2>
-        <p>
-          Voltei a escrever no blog. Vou contar os bugs que me custaram tempo
-          demais, começando pelos que eu achei neste site mesmo.
-        </p>
+        {/* Sem promessa de escrever mais: a seção mostra o que existe e para
+            aí. Promessa na home envelhece sozinha. */}
+        <h2>Blog</h2>
         {latestPost && (
           <div className="flex flex-col gap-1">
             <h3>
