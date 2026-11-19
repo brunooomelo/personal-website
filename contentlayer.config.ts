@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
+import { siteUrl } from "./src/config/site";
 
 export const Content = defineDocumentType(() => ({
   name: "Content",
@@ -31,9 +32,9 @@ export const Content = defineDocumentType(() => ({
         dateModified: doc.publishedAt,
         description: doc.summary,
         image: doc.image
-          ? `https://brunooomelo.vercel.app${doc.image}`
-          : `https://brunooomelo.vercel.app/og?title=${doc.title}`,
-        url: `https://brunooomelo.vercel.app/blog/${doc._raw.flattenedPath}`,
+          ? `${siteUrl}${doc.image}`
+          : `${siteUrl}/og?title=${doc.title}`,
+        url: `${siteUrl}/blog/${doc._raw.flattenedPath}`,
         author: {
           "@type": "Person",
           name: "Bruno Melo",

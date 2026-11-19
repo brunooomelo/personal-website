@@ -30,7 +30,7 @@ type Dictionary = {
     tagline: string;
     follow: string;
     followAria: string;
-    nav: Record<"home" | "blog" | "guestbook" | "uses", string>;
+    nav: Record<"home" | "blog", string>;
     switchTo: string;
     switchAria: string;
   };
@@ -54,9 +54,9 @@ const pt: Dictionary = {
   },
   header: {
     tagline: "Forward Deployed Engineer",
-    follow: "Me acompanhe",
-    followAria: "Me acompanhe no GitHub",
-    nav: { home: "home", blog: "blog", guestbook: "guestbook", uses: "uses" },
+    follow: "Fale comigo",
+    followAria: "Fale comigo: ir para o contato",
+    nav: { home: "home", blog: "blog" },
     switchTo: "EN",
     switchAria: "Read in English",
   },
@@ -112,9 +112,9 @@ const en: Dictionary = {
   },
   header: {
     tagline: "Forward Deployed Engineer",
-    follow: "Follow along",
-    followAria: "Follow along on GitHub",
-    nav: { home: "home", blog: "blog", guestbook: "guestbook", uses: "uses" },
+    follow: "Get in touch",
+    followAria: "Get in touch: go to contact",
+    nav: { home: "home", blog: "blog" },
     switchTo: "PT",
     switchAria: "Ler em português",
   },

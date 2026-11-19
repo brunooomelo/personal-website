@@ -12,37 +12,29 @@ const pages = [
     label: "blog",
     url: "/blog",
   },
-  {
-    label: "guestbook",
-    url: "/guestbook",
-  },
-  {
-    label: "uses",
-    url: "/uses",
-  },
 ];
 
 const isActive = (route: string, url: string) =>
   route === url || (url !== "/" && route.startsWith(url));
 
-// Seta diagonal desenhada em traço fino, no lugar de um ícone de biblioteca:
-// herda a cor do texto e escala com o font-size do link.
-const ArrowUpRight = () => (
+// Seta desenhada em traço fino, no lugar de um ícone de biblioteca: herda a
+// cor do texto e escala com o font-size do link.
+const ArrowRight = () => (
   <svg
     viewBox="0 0 24 24"
     aria-hidden="true"
     focusable="false"
-    className="h-[1.1em] w-[1.1em] fill-none stroke-current transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+    className="h-[1.1em] w-[1.1em] fill-none stroke-current transition-transform duration-200 group-hover:translate-x-0.5"
     strokeWidth={1.4}
     strokeLinecap="square"
   >
-    <path d="M5 19 19 5M5 5h14v14" />
+    <path d="M4 12h15M13 6l6 6-6 6" />
   </svg>
 );
 
 /**
  * Header no estilo "editorial": monograma grande em sans, nome + tagline em
- * mono miúdo ao lado, e um CTA discreto à direita. A navegação fica na mesma
+ * mono miúdo ao lado, e um CTA à direita que leva ao contato da home. A navegação fica na mesma
  * linha no desktop e desce para uma linha própria no mobile.
  */
 export const Header = () => {
@@ -52,7 +44,7 @@ export const Header = () => {
   const otherLocale = locale === "en" ? "pt-BR" : "en";
 
   return (
-    <header className="w-full flex flex-wrap items-center gap-x-6 gap-y-5 pt-4 pb-2">
+    <header className="w-full flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-5 pt-4 pb-2">
       <Link
         href="/"
         aria-label="Bruno Melo — página inicial"
@@ -67,7 +59,7 @@ export const Header = () => {
       <Link
         href="/"
         tabIndex={-1}
-        className="font-mono text-[10px] md:text-[11px] leading-relaxed tracking-[0.05em] uppercase"
+        className="min-w-0 flex-1 sm:flex-none font-mono text-[10px] md:text-[11px] leading-relaxed tracking-[0.05em] uppercase"
       >
         Bruno Melo
         <span className="block text-[9px] text-ink-400">
@@ -76,17 +68,12 @@ export const Header = () => {
       </Link>
 
       <Link
-        href="https://github.com/brunooomelo"
-        target="_blank"
-        rel="me noopener noreferrer"
+        href="/#contato"
         aria-label={t.followAria}
-        className="group ml-auto flex items-center gap-2.5 p-2 -m-2 font-mono text-[10px] tracking-[0.05em] uppercase text-accent transition-colors hover:text-ink-50"
+        className="group ml-auto shrink-0 flex items-center gap-2.5 p-2 -m-2 font-mono text-[10px] tracking-[0.05em] uppercase text-accent transition-colors hover:text-ink-50"
       >
-        {/* No mobile só a seta aparece (maior), igual a referência. */}
-        <span className="hidden sm:inline">{t.follow}</span>
-        <span className="text-[22px] sm:text-[10px] flex">
-          <ArrowUpRight />
-        </span>
+        {t.follow}
+        <ArrowRight />
       </Link>
 
       <nav
