@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 
 import SEO from "../../next-seo.config";
 import { Analytics } from "@/components/analytics";
+import { Footer } from "@/components/footer";
 
 // Mono continua sendo a personalidade do site — títulos, menu, metadados e
 // código. O texto corrido vai para uma sans neutra: monoespaçada cansa em
@@ -40,9 +41,11 @@ export default function App({
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
           <main
+            id="top"
             className={`${sans.variable} ${mono.variable} font-sans max-w-3xl mx-auto p-6 flex flex-col gap-8`}
           >
             <Component {...pageProps} />
+            <Footer />
           </main>
         </SessionProvider>
       </QueryClientProvider>

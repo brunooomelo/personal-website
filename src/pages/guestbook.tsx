@@ -7,16 +7,20 @@ import { useQuery } from "react-query";
 import { CommentForm } from "@/components/form-comment";
 import { event } from "@/utils/gtag";
 import { absoluteUrl } from "@/config/site";
+import { useRouter } from "next/router";
+import { PageTitle } from "@/components/page-title";
+import { getPagesDictionary } from "@/i18n/pages";
 
 export default function Guestbook() {
   const { data: session, status } = useSession();
+  const t = getPagesDictionary(useRouter().locale).guestbook;
   const { isLoading, data: comments } = useQuery<Comment[]>(
     "comments",
     async () => {
       const res = await fetch("/api/guestbook");
       // fetch não rejeita em 4xx/5xx: sem isto o react-query considerava a
       // falha um sucesso e a lista virava `undefined` em silêncio.
-      if (!res.ok) throw new Error("Não foi possível carregar as mensagens.");
+      if (!res.ok) throw new Error(t.loadError);
       const body = await res.json();
       return body.docs ?? [];
     },
@@ -26,12 +30,12 @@ export default function Guestbook() {
     <>
       <NextSeo
         title="Bruno Melo - Guestbook"
-        description="Guestbook: Um livro de visita onde você pode deixar sua preciosa mensagem para mim e tambem ver todas as mensagem antigas"
+        description={t.seo}
         canonical={absoluteUrl("/guestbook")}
         openGraph={{ url: absoluteUrl("/guestbook") }}
       />
       <Header />
-      <h1>Bem-vindo ao meu Guestbook 📕</h1>
+      <PageTitle eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
 
       {status === "unauthenticated" && (
         <button
@@ -44,10 +48,10 @@ export default function Guestbook() {
             });
             signIn("github");
           }}
-          className="flex w-1/4 items-center justify-center gap-3 rounded-md bg-ink-700 hover:bg-ink-600 px-3 py-1.5 text-ink-50"
+          className="inline-flex items-center gap-3 self-start rounded border border-ink-500 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.05em] text-ink-50 transition-colors hover:border-ink-300 hover:bg-ink-800"
         >
-          <SiGithub className="h-5 w-5" />
-          <span className="text-sm font-semibold leading-6">GitHub</span>
+          <SiGithub className="h-4 w-4" />
+          {t.signIn}
         </button>
       )}
 

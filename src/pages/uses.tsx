@@ -1,35 +1,44 @@
-import { Header } from "@/components/header";
-import UsesJSON from "../../public/uses.json";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
+import { Header } from "@/components/header";
+import { PageTitle } from "@/components/page-title";
 import { absoluteUrl } from "@/config/site";
+import { getPagesDictionary } from "@/i18n/pages";
+import UsesJSON from "../../public/uses.json";
 
 const Uses = () => {
+  const t = getPagesDictionary(useRouter().locale).uses;
+
   return (
     <>
       <NextSeo
-        title="Bruno Melo - My Setup"
-        description="My Setup é onde você ira conhecer meu setup, meus aplicativos e algumas curiosidades sobre meu ambiente de trabalho e hobby."
+        title="Bruno Melo - Setup"
+        description={t.seo}
         canonical={absoluteUrl("/uses")}
         openGraph={{ url: absoluteUrl("/uses") }}
       />
       <Header />
-      <h1>Meu Setup</h1>
-      <div className="flex flex-col gap-8">
+      <PageTitle eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
+
+      {/* Mesmo padrão rótulo-à-esquerda dos cases. */}
+      <dl className="grid gap-x-6 gap-y-5 border-t border-ink-500 pt-6 sm:grid-cols-[11rem_1fr]">
         {Object.entries(UsesJSON as Record<string, string[]>).map(
           ([section, items]) => (
-            // Cada título fica colado na sua lista (gap-3) e as seções se
-            // separam pelo gap-8 do contêiner: é a proximidade que agrupa.
-            <section key={section} className="flex flex-col gap-3">
-              <h2>{section}</h2>
-              <ul className="flex flex-col gap-1">
-                {items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </section>
+            <div key={section} className="contents">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400 sm:pt-1.5">
+                {section}
+              </dt>
+              <dd className="-mt-3 min-w-0 sm:mt-0">
+                <ul className="flex flex-col">
+                  {items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
           ),
         )}
-      </div>
+      </dl>
     </>
   );
 };

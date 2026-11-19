@@ -2,15 +2,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
-import ptBR from "date-fns/locale/pt-BR";
 import { GetStaticPaths } from "next/types";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import { format, parseISO } from "date-fns";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Content, allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
 import { absoluteUrl } from "@/config/site";
+import { formatPostDate, getPagesDictionary } from "@/i18n/pages";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = allContents.map((post) => ({
@@ -33,7 +32,8 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 
 const CustomLink = (props: any) => {
   const href = props.href;
-  const className = "text-cyan-400 hover:text-cyan-200 focus:text-cyan-200";
+  const className =
+    "text-accent underline underline-offset-4 decoration-ink-500 hover:text-ink-50";
 
   if (href.startsWith("/")) {
     return (
@@ -68,7 +68,8 @@ function RoundedImage(props: any) {
 }
 
 const PostLayout = (content: Content) => {
-  const router = useRouter();
+  const { locale } = useRouter();
+  const t = getPagesDictionary(locale).post;
   const MDXContent = useMDXComponent(content.body.code);
   return (
     <>
@@ -86,23 +87,21 @@ const PostLayout = (content: Content) => {
         }}
       />
       <Header />
-      <article className="py-8 prose prose-quoteless prose-neutral prose-invert text-ink-50">
-        <div className="mb-8 text-ink-50">
-          <button
-            onClick={() => router.back()}
-            className="mb-8 flex gap-1 px-1 font-mono text-sm underline"
+      <article className="prose prose-quoteless prose-neutral prose-invert max-w-none text-ink-50">
+        <div className="not-prose mb-10 flex flex-col gap-3">
+          <Link
+            href="/blog"
+            className="self-start font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400 transition-colors hover:text-ink-50"
           >
-            Voltar
-          </button>
+            ← {t.back}
+          </Link>
           <time
             dateTime={content.publishedAt}
-            className="font-mono text-xs text-ink-400"
+            className="font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400"
           >
-            {format(parseISO(content.publishedAt), "LLLL d, yyyy", {
-              locale: ptBR,
-            })}
+            {formatPostDate(content.publishedAt, locale)}
           </time>
-          <h1 className="text-3xl font-bold text-ink-50">{content.title}</h1>
+          <h1 className="text-3xl leading-10">{content.title}</h1>
         </div>
 
         <MDXContent

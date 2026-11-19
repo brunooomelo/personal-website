@@ -1,10 +1,12 @@
 import { NextSeo } from "next-seo";
 import Link from "next/link";
-import { compareDesc, format, parseISO } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
+import { useRouter } from "next/router";
+import { compareDesc } from "date-fns";
 import { allContents } from "@contentlayer/generated";
 import { Header } from "@/components/header";
+import { PageTitle } from "@/components/page-title";
 import { absoluteUrl } from "@/config/site";
+import { formatPostDate, getPagesDictionary } from "@/i18n/pages";
 import { useEffect, useState } from "react";
 
 type PostSummary = {
@@ -36,6 +38,8 @@ export const getStaticProps = async () => {
 };
 
 export default function Blog({ posts }: BlogProps) {
+  const { locale } = useRouter();
+  const t = getPagesDictionary(locale).blog;
   const [views, setViews] = useState<Record<string, number> | null>(null);
 
   useEffect(() => {
@@ -77,38 +81,38 @@ export default function Blog({ posts }: BlogProps) {
     <>
       <NextSeo
         title="Bruno Melo - Blog"
-        description="Meu blog onde eu irei comentar sobre tecnologias, frameworks, hobbies e outras coisas"
+        description={t.seo}
         canonical={absoluteUrl("/blog")}
         openGraph={{ url: absoluteUrl("/blog") }}
       />
       <Header />
-      <div className="flex flex-col gap-8">
-        <h1>Todos os meus posts 📝</h1>
+      <PageTitle eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
 
-        {!posts.length ? (
-          <h2>Não tem posts ainda, posts em construção 🚨👷🏽🚧</h2>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {posts.map((post) => (
-              <ContentCard
-                key={post._id}
-                post={post}
-                views={views?.[post._id] ?? null}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      {!posts.length ? (
+        <p className="text-ink-300">{t.empty}</p>
+      ) : (
+        <ul className="flex flex-col border-b border-ink-500">
+          {posts.map((post) => (
+            <ContentCard
+              key={post._id}
+              post={post}
+              date={formatPostDate(post.publishedAt, locale)}
+              viewsLabel={t.views(views?.[post._id] ?? null)}
+            />
+          ))}
+        </ul>
+      )}
     </>
   );
 }
 
 type ContentCardProps = {
   post: PostSummary;
-  views: number | null;
+  date: string;
+  viewsLabel: string;
 };
 
-function ContentCard({ post, views }: ContentCardProps) {
+function ContentCard({ post, date, viewsLabel }: ContentCardProps) {
   const incrementPost = () =>
     fetch("/api/postview", {
       method: "POST",
@@ -120,31 +124,23 @@ function ContentCard({ post, views }: ContentCardProps) {
       }),
     });
 
+  // Mesma linha dos cases e projetos: metadado em mono em cima, título embaixo.
   return (
-    <div className="flex flex-col gap-1">
-      <h2>
-        <Link
-          href={post.url}
-          onClick={incrementPost}
-          className="text-cyan-400 hover:text-cyan-200"
-        >
+    <li className="border-t border-ink-500">
+      <Link
+        href={post.url}
+        onClick={incrementPost}
+        className="group flex flex-col gap-2 py-5"
+      >
+        <p className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400">
+          <time dateTime={post.publishedAt}>{date}</time>
+          <span aria-hidden="true">·</span>
+          <span>{viewsLabel}</span>
+        </p>
+        <h2 className="transition-colors group-hover:text-ink-300">
           {post.title}
-        </Link>
-      </h2>
-      <div className="flex gap-4 align-center">
-        <time
-          dateTime={post.publishedAt}
-          className="mb-2 block font-mono text-xs text-ink-400"
-        >
-          {format(parseISO(post.publishedAt), "LLLL d, yyyy", {
-            locale: ptBR,
-          })}
-        </time>
-        <span className="block font-mono text-xs text-ink-400">-</span>
-        <span className="block font-mono text-xs text-ink-400">
-          {views ?? "—"} visualizações
-        </span>
-      </div>
-    </div>
+        </h2>
+      </Link>
+    </li>
   );
 }

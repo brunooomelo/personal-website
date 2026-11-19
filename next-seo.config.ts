@@ -8,15 +8,15 @@ const config: DefaultSeoProps = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    siteName: "Bruno Melo Personal Website",
+    siteName: "Bruno Melo",
     description:
-      "Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS",
+      "Forward Deployed Engineer: conecto o produto aos sistemas do cliente, adapto IA para cada caso e coloco em produção.",
     images: [
       {
         url: `${siteUrl}/home/cover.png`,
         width: 1280,
         height: 720,
-        alt: "Bruno Melo Personal Website",
+        alt: "Bruno Melo, Forward Deployed Engineer",
       },
     ],
   },
