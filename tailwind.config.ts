@@ -24,6 +24,9 @@ export default {
           900: "#161616", // superfície de código e campos
           950: "#0A0A0A", // fundo da página
         },
+        // Único toque de cor: verde-sálvia dessaturado, usado só no CTA do
+        // header. Fica legível sobre ink-950 sem brigar com a rampa neutra.
+        accent: "#C7D2B3",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
