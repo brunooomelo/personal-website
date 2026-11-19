@@ -34,7 +34,6 @@ type Dictionary = {
     switchAria: string;
   };
   intro: { heading: string; paragraphs: string[] };
-  focus: { heading: string; items: { title: string; text: string }[] };
   cases: {
     heading: string;
     lead: string;
@@ -65,27 +64,6 @@ const pt: Dictionary = {
     paragraphs: [
       "Sou Forward Deployed Engineer. Trabalho no ponto em que o produto encontra a realidade do cliente: entendo o problema, conecto com os sistemas que já existem lá e coloco a solução em produção.",
       "Hoje construo integrações de pagamento e mensageria e assistentes de IA adaptados a cada cliente numa plataforma de negociação de dívidas. Vou do backend e das filas até o SQL, a observabilidade e a tela que o time de operação usa.",
-    ],
-  },
-  focus: {
-    heading: "No que eu sou bom",
-    items: [
-      {
-        title: "Integrar com o sistema dos outros",
-        text: "OAuth 2.0 com mTLS, webhooks, idempotência e APIs mal documentadas de bancos e plataformas de mensageria.",
-      },
-      {
-        title: "Prototipar rápido",
-        text: "POCs com harness de teste publicado, para validar a ideia com o time antes de investir na versão completa.",
-      },
-      {
-        title: "Adaptar IA a cada cliente",
-        text: "Variantes de assistente com prompts, regras e tom próprios, sem quebrar o comportamento dos outros clientes.",
-      },
-      {
-        title: "Ser dono da produção",
-        text: "Dashboards e alertas, consultas para achar registros órfãos e investigação de erro de provedor até a causa.",
-      },
     ],
   },
   cases: {
@@ -171,27 +149,6 @@ const en: Dictionary = {
     paragraphs: [
       "I'm a Forward Deployed Engineer. I work where the product meets the customer's reality: I learn the problem, connect to the systems they already run and get the solution into production.",
       "Today I build payment and messaging integrations and AI assistants tailored to each customer on a debt negotiation platform. I cover the backend and queues, SQL and observability, and the screens the operations team works in.",
-    ],
-  },
-  focus: {
-    heading: "What I'm good at",
-    items: [
-      {
-        title: "Integrating with other people's systems",
-        text: "OAuth 2.0 with mTLS, webhooks, idempotency and poorly documented APIs from banks and messaging platforms.",
-      },
-      {
-        title: "Prototyping fast",
-        text: "POCs with a deployed test harness, so the team can validate the idea before investing in the full build.",
-      },
-      {
-        title: "Tailoring AI to each customer",
-        text: "Assistant variants with their own prompts, rules and tone, without breaking behavior for other customers.",
-      },
-      {
-        title: "Owning production",
-        text: "Dashboards and alerts, queries that find orphaned records, and chasing provider errors down to the root cause.",
-      },
     ],
   },
   cases: {

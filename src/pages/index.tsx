@@ -41,18 +41,6 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="flex flex-col gap-5">
-        <h2>{t.focus.heading}</h2>
-        <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-          {t.focus.items.map((item) => (
-            <li key={item.title} className="flex flex-col gap-1 min-w-0">
-              <h3>{item.title}</h3>
-              <p className="text-ink-300">{item.text}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       <section id="cases" className="flex flex-col gap-3">
         <h2>{t.cases.heading}</h2>
         <p className="text-ink-300">{t.cases.lead}</p>
