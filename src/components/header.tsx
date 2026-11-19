@@ -1,26 +1,23 @@
 import { pageview } from "@/utils/gtag";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getDictionary, toLocale } from "@/i18n/home";
 
 const pages = [
   {
     label: "home",
-    ariaLabel: "Ir para a página inicial",
     url: "/",
   },
   {
     label: "blog",
-    ariaLabel: "Ir para a página do blog",
     url: "/blog",
   },
   {
     label: "guestbook",
-    ariaLabel: "Ir para a página do guestbook",
     url: "/guestbook",
   },
   {
     label: "uses",
-    ariaLabel: "Ir para a página de setup",
     url: "/uses",
   },
 ];
@@ -49,7 +46,10 @@ const ArrowUpRight = () => (
  * linha no desktop e desce para uma linha própria no mobile.
  */
 export const Header = () => {
-  const { route } = useRouter();
+  const { route, asPath, locale: rawLocale } = useRouter();
+  const locale = toLocale(rawLocale);
+  const t = getDictionary(locale).header;
+  const otherLocale = locale === "en" ? "pt-BR" : "en";
 
   return (
     <header className="w-full flex flex-wrap items-center gap-x-6 gap-y-5 pt-4 pb-2">
@@ -71,7 +71,7 @@ export const Header = () => {
       >
         Bruno Melo
         <span className="block text-[9px] text-ink-400">
-          Forward Deployed Engineer
+          {t.tagline}
         </span>
       </Link>
 
@@ -79,24 +79,26 @@ export const Header = () => {
         href="https://github.com/brunooomelo"
         target="_blank"
         rel="me noopener noreferrer"
-        aria-label="Me acompanhe no GitHub"
+        aria-label={t.followAria}
         className="group ml-auto flex items-center gap-2.5 p-2 -m-2 font-mono text-[10px] tracking-[0.05em] uppercase text-accent transition-colors hover:text-ink-50"
       >
         {/* No mobile só a seta aparece (maior), igual a referência. */}
-        <span className="hidden sm:inline">Me acompanhe</span>
+        <span className="hidden sm:inline">{t.follow}</span>
         <span className="text-[22px] sm:text-[10px] flex">
           <ArrowUpRight />
         </span>
       </Link>
 
-      <nav aria-label="Principal" className="w-full border-t border-ink-700 pt-3">
-        <ul className="flex gap-6 font-mono text-[11px] tracking-[0.05em] uppercase">
+      <nav
+        aria-label={locale === "en" ? "Main" : "Principal"}
+        className="w-full flex items-center gap-6 border-t border-ink-700 pt-3 font-mono text-[11px] tracking-[0.05em] uppercase"
+      >
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
           {pages.map((page) => {
             const active = isActive(route, page.url);
             return (
               <li key={page.label}>
                 <Link
-                  aria-label={page.ariaLabel}
                   aria-current={active ? "page" : undefined}
                   href={page.url}
                   onClick={() => pageview(page.url)}
@@ -112,6 +114,17 @@ export const Header = () => {
             );
           })}
         </ul>
+
+        {/* Troca de idioma mantendo a página atual. */}
+        <Link
+          href={asPath}
+          locale={otherLocale}
+          hrefLang={otherLocale}
+          aria-label={t.switchAria}
+          className="ml-auto text-ink-400 transition-colors hover:text-ink-50"
+        >
+          {t.switchTo}
+        </Link>
       </nav>
     </header>
   );

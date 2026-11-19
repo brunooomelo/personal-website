@@ -1,8 +1,9 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
 
-export default function Document() {
+// O `lang` acompanha o idioma da rota (/en = inglês).
+export default function Document({ locale }: DocumentProps) {
   return (
-    <Html lang="pt-BR">
+    <Html lang={locale ?? "pt-BR"}>
       <Head />
       <body>
         <Main />

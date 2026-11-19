@@ -1,144 +1,78 @@
-import Link from "next/link";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Technologies } from "@/components/technologies";
 import { CompanyWorked } from "@/components/companies-worked";
 import { Projects } from "@/components/projects";
+import { Cases } from "@/components/cases";
 import { absoluteUrl } from "@/config/site";
+import { getDictionary, toLocale } from "@/i18n/home";
 
 export default function Home() {
+  const locale = toLocale(useRouter().locale);
+  const t = getDictionary(locale);
+  const url = absoluteUrl(locale === "en" ? "/en" : "/");
+
   return (
     <>
       <NextSeo
-        title="Bruno Melo - Home"
-        description="Sou desenvolvedor Fullstack na Stack JS, atualmente construindo SaaS e MicroSaaS."
-        canonical={absoluteUrl("/")}
-        openGraph={{ url: absoluteUrl("/") }}
+        title={t.seo.title}
+        description={t.seo.description}
+        canonical={url}
+        openGraph={{
+          url,
+          locale: locale === "en" ? "en_US" : "pt_BR",
+          description: t.seo.description,
+        }}
+        languageAlternates={[
+          { hrefLang: "pt-BR", href: absoluteUrl("/") },
+          { hrefLang: "en", href: absoluteUrl("/en") },
+          { hrefLang: "x-default", href: absoluteUrl("/") },
+        ]}
       />
       <Header />
-      <div className="flex flex-col gap-3">
-        <h1>Prazer, Meu nome é Bruno Melo 👋🏽</h1>
-        <p>
-          Eu sou desenvolvedor fullstack na stack Javascript, Sou founder do{" "}
-          <Link
-            href="https://mulesstudio.vercel.app"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Mules Studio
-          </Link>{" "}
-          é uma comunidade NFT de Mulas na blockchain da Fantom. Eu atualmente
-          estou construindo o{" "}
-          <Link
-            href="https://figurinhaszap.com"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Figurinhas
-          </Link>
-          , uma plataforma de criação de figurinhas de Whatsapp online e grátis.
-        </p>
-      </div>
-      {/* <div className="columns-2 sm:columns-3 gap-4 my-8">
-        <div className="relative h-40 mb-4">
-          <Image
-            alt="Me speaking on stage at React Summit about the future of Next.js"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-80 mb-4 sm:mb-0">
-          <Image
-            alt="Me, Lydia, and Delba filming the Next.js Conf keynote"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover object-[-16px] sm:object-center"
-          />
-        </div>
-        <div className="relative h-40 sm:h-80 sm:mb-4">
-          <Image
-            alt="Me standing on stage at Reactathon delivering the keynote"
-            fill
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
 
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover object-top sm:object-center"
-          />
-        </div>
-        <div className="relative h-40 mb-4 sm:mb-0">
-          <Image
-            alt="Me standing on stage at SmashingConf giving a talk about my optimism for the web"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
+      <section className="flex flex-col gap-3">
+        <h1>{t.intro.heading}</h1>
+        {t.intro.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </section>
 
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-40 mb-4">
-          <Image
-            alt="Me and Guillermo Rauch on stage for Vercel Ship, answering questions from the Next.js community"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
+      <section className="flex flex-col gap-5">
+        <h2>{t.focus.heading}</h2>
+        <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+          {t.focus.items.map((item) => (
+            <li key={item.title} className="flex flex-col gap-1 min-w-0">
+              <h3>{item.title}</h3>
+              <p className="text-ink-300">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-80">
-          <Image
-            alt="My badge on top of a pile of badges from a Vercel meetup we held"
-            src="https://github.com/leerob/leerob.io/blob/main/public/images/home/reactathon.jpg?raw=true"
-            fill
-            sizes="(min-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-      </div> */}
-      <div className="flex flex-col gap-3">
-        <p>
-          Eu tenho conhecimento sólidos nas seguintes tecnologias ao longo da
-          minha jornada como desenvolvedor:
-        </p>
+      <section id="cases" className="flex flex-col gap-3">
+        <h2>{t.cases.heading}</h2>
+        <p className="text-ink-300">{t.cases.lead}</p>
+        <Cases items={t.cases.items} labels={t.cases.labels} />
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <p>{t.technologies}</p>
         <Technologies />
-      </div>
+      </section>
 
-      <div className="flex flex-col gap-3">
-        <p>
-          já trabalhei em empresas como desenvolvedor backend e frontend e até
-          como UI designer
-        </p>
+      <section className="flex flex-col gap-3">
+        <p>{t.companies}</p>
         <CompanyWorked />
-      </div>
-      <div className="flex flex-col gap-3">
-        <p>
-          Sou apaixonado em side-projects e{" "}
-          <Link
-            aria-label="Conheça mais sobre o build in public no twitter"
-            href="https://twitter.com/hashtag/buildinpublic?src=hashtag_click"
-            className="text-cyan-400 hover:text-cyan-200 focus:text-cyan-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            #BuildinPublic
-          </Link>
-          . Alguns projetos ainda estão ativos e outros já foram descontinuados.
-        </p>
-        <Projects />
-      </div>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <p>{t.projects.lead}</p>
+        <Projects locale={locale} archivedLabel={t.projects.archived} />
+      </section>
       <Footer />
     </>
   );
