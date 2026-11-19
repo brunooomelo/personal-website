@@ -71,7 +71,7 @@ export const Header = () => {
       >
         Bruno Melo
         <span className="block text-[9px] text-ink-400">
-          Desenvolvedor Fullstack
+          Forward Deployed Engineer
         </span>
       </Link>
 
