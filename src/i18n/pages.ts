@@ -13,11 +13,18 @@ type PagesDictionary = {
   post: { back: string };
   guestbook: PageCopy & {
     signIn: string;
+    signOut: string;
     loadError: string;
+    placeholder: string;
+    send: string;
+    sending: string;
+    pending: string;
+    errors: Record<"unauthenticated" | "empty" | "too_long" | "method" | "generic", string>;
   };
-  uses: PageCopy;
+  uses: PageCopy & { sections: { title: string; items: string[] }[] };
   notFound: PageCopy & { back: string };
-  footer: { role: string; backToTop: string };
+  footer: { role: string; backToTop: string; linksLabel: string };
+  homeAria: string;
 };
 
 const pt: PagesDictionary = {
@@ -37,13 +44,30 @@ const pt: PagesDictionary = {
     lead: "Entre com o GitHub para assinar o livro de visitas.",
     seo: "Livro de visitas do Bruno Melo: entre com o GitHub e deixe uma mensagem.",
     signIn: "Entrar com GitHub",
+    signOut: "Sair do guestbook",
     loadError: "Não foi possível carregar as mensagens.",
+    placeholder: "Deixe sua mensagem aqui",
+    send: "Enviar",
+    sending: "Enviando",
+    pending: "Enviando mensagem",
+    errors: {
+      unauthenticated: "Sua sessão expirou. Entre com o GitHub de novo.",
+      empty: "Escreva uma mensagem antes de enviar.",
+      too_long: "A mensagem passa de 280 caracteres.",
+      method: "Não foi possível enviar sua mensagem.",
+      generic: "Não foi possível enviar sua mensagem. Tente de novo.",
+    },
   },
   uses: {
     eyebrow: "Uses",
     title: "Setup",
     lead: "Equipamento e programas que eu uso para trabalhar.",
     seo: "O setup do Bruno Melo: equipamento, editor, terminal e programas.",
+    sections: [
+      { title: "Computador", items: ['MacBook Pro 13" (2020)'] },
+      { title: "Código", items: ["Editor: VS Code", "Tema: Dracula", "Terminal: WezTerm / zsh"] },
+      { title: "Programas", items: ["Figma", "Numi"] },
+    ],
   },
   notFound: {
     eyebrow: "404",
@@ -52,7 +76,8 @@ const pt: PagesDictionary = {
     seo: "Página não encontrada.",
     back: "Voltar para a home",
   },
-  footer: { role: "Forward Deployed Engineer", backToTop: "Voltar ao topo" },
+  footer: { role: "Forward Deployed Engineer", backToTop: "Voltar ao topo", linksLabel: "Redes" },
+  homeAria: "Bruno Melo, página inicial",
 };
 
 const en: PagesDictionary = {
@@ -71,13 +96,30 @@ const en: PagesDictionary = {
     lead: "Sign in with GitHub to sign the guestbook.",
     seo: "Bruno Melo's guestbook: sign in with GitHub and leave a message.",
     signIn: "Sign in with GitHub",
+    signOut: "Sign out of the guestbook",
     loadError: "Couldn't load the messages.",
+    placeholder: "Leave your message here",
+    send: "Send",
+    sending: "Sending",
+    pending: "Sending message",
+    errors: {
+      unauthenticated: "Your session expired. Sign in with GitHub again.",
+      empty: "Write a message before sending.",
+      too_long: "The message is over 280 characters.",
+      method: "Couldn't send your message.",
+      generic: "Couldn't send your message. Try again.",
+    },
   },
   uses: {
     eyebrow: "Uses",
     title: "Setup",
     lead: "The hardware and software I work with.",
     seo: "Bruno Melo's setup: hardware, editor, terminal and apps.",
+    sections: [
+      { title: "Computer", items: ['13" MacBook Pro (2020)'] },
+      { title: "Coding", items: ["Editor: VS Code", "Theme: Dracula", "Terminal: WezTerm / zsh"] },
+      { title: "Software", items: ["Figma", "Numi"] },
+    ],
   },
   notFound: {
     eyebrow: "404",
@@ -86,7 +128,8 @@ const en: PagesDictionary = {
     seo: "Page not found.",
     back: "Back to home",
   },
-  footer: { role: "Forward Deployed Engineer", backToTop: "Back to top" },
+  footer: { role: "Forward Deployed Engineer", backToTop: "Back to top", linksLabel: "Links" },
+  homeAria: "Bruno Melo, home page",
 };
 
 const dictionaries: Record<Locale, PagesDictionary> = { "pt-BR": pt, en };

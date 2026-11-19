@@ -2,6 +2,7 @@ import { pageview } from "@/utils/gtag";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getDictionary, toLocale } from "@/i18n/home";
+import { getPagesDictionary } from "@/i18n/pages";
 
 const pages = [
   {
@@ -47,7 +48,7 @@ export const Header = () => {
     <header className="w-full flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-5 pt-4 pb-2">
       <Link
         href="/"
-        aria-label="Bruno Melo — página inicial"
+        aria-label={getPagesDictionary(locale).homeAria}
         className="font-sans font-bold text-[34px] md:text-[39px] leading-[0.8] tracking-[-0.1em]"
       >
         bm

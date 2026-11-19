@@ -16,7 +16,10 @@ type Comment = {
   created_at: Date;
 };
 
-type Data = { docs: WithId<Comment>[] } | { error: string };
+// `code` é estável e o cliente traduz a partir dele; `error` fica como texto
+// legível para quem chama a API direto.
+type ErrorCode = "unauthenticated" | "empty" | "too_long" | "method";
+type Data = { docs: WithId<Comment>[] } | { error: string; code: ErrorCode };
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,16 +34,17 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
     const user = session?.user;
     if (!user?.id || !user.username) {
-      return res.status(401).json({ error: "É preciso estar autenticado." });
+      return res.status(401).json({ error: "É preciso estar autenticado.", code: "unauthenticated" });
     }
 
     const comment = (req.body ?? {}).comment;
     if (typeof comment !== "string" || !comment.trim()) {
-      return res.status(400).json({ error: "A mensagem não pode ser vazia." });
+      return res.status(400).json({ error: "A mensagem não pode ser vazia.", code: "empty" });
     }
     if (comment.trim().length > MAX_COMMENT_LENGTH) {
       return res.status(400).json({
         error: `A mensagem passa de ${MAX_COMMENT_LENGTH} caracteres.`,
+        code: "too_long",
       });
     }
 
@@ -75,5 +79,5 @@ export default async function handler(
   }
 
   res.setHeader("Allow", "GET, POST");
-  return res.status(405).json({ error: "Método não suportado." });
+  return res.status(405).json({ error: "Método não suportado.", code: "method" });
 }

@@ -3,7 +3,6 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 const projects = [
   {
-    ariaLabel: "Conheça mais sobre meu orçamento simples",
     url: "https://figurinhaszap.com",
     title: "Figurinhas",
     description:
@@ -12,8 +11,6 @@ const projects = [
     isArchived: false,
   },
   {
-    ariaLabel:
-      "Conheça mais sobre o Mules Studio, NFT de Mulas na Blockchain da Fantom",
     url: "https://mulesstudio.vercel.app",
     title: "Mules Studio",
     description: "Uma comunidade NFT de Mulas na Blockchain da Fantom",
@@ -21,8 +18,6 @@ const projects = [
     isArchived: false,
   },
   {
-    ariaLabel:
-      "Conheça mais sobre um projeto arquivo de uma SDK do PicPay em Javascript",
     url: "https://github.com/brunooomelo/picpay-js",
     title: "Picpay-js",
     description: "Uma SDK em javascript para API Rest do PicPay Ecommerce",
@@ -30,8 +25,6 @@ const projects = [
     isArchived: true,
   },
   {
-    ariaLabel:
-      "Conheça mais sobre um projeto arquivado de uma CLI de resultados da loteria brasileira",
     url: "https://github.com/brunooomelo/lottery",
     title: "Lottery",
     description: "CLI para receber resultados da Loteria Brasileira",
@@ -58,7 +51,6 @@ export const Projects = ({
       .map((project) => (
       <Link
         key={project.title}
-        aria-label={project.ariaLabel}
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"

@@ -4,7 +4,6 @@ import { Header } from "@/components/header";
 import { PageTitle } from "@/components/page-title";
 import { absoluteUrl } from "@/config/site";
 import { getPagesDictionary } from "@/i18n/pages";
-import UsesJSON from "../../public/uses.json";
 
 const Uses = () => {
   const t = getPagesDictionary(useRouter().locale).uses;
@@ -22,8 +21,7 @@ const Uses = () => {
 
       {/* Mesmo padrão rótulo-à-esquerda dos cases. */}
       <dl className="grid gap-x-6 gap-y-5 border-t border-ink-500 pt-6 sm:grid-cols-[11rem_1fr]">
-        {Object.entries(UsesJSON as Record<string, string[]>).map(
-          ([section, items]) => (
+        {t.sections.map(({ title: section, items }) => (
             <div key={section} className="contents">
               <dt className="font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400 sm:pt-1.5">
                 {section}
@@ -36,8 +34,7 @@ const Uses = () => {
                 </ul>
               </dd>
             </div>
-          ),
-        )}
+        ))}
       </dl>
     </>
   );

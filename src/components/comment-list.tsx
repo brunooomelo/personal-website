@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { getPagesDictionary } from "@/i18n/pages";
 
 export type Comment = {
   _id?: string;
@@ -18,6 +20,7 @@ export const CommentList = ({
   isLoading,
   ownerId,
 }: CommentListProps) => {
+  const t = getPagesDictionary(useRouter().locale).guestbook;
   return (
     <div className="flex flex-col space-y-1 mb-4">
       {isLoading && (
@@ -69,7 +72,7 @@ export const CommentList = ({
             {comment.comment}{" "}
             {!comment._id && (
               <span className="inline-flex items-center rounded-md bg-ink-800 px-2 text-xs font-medium text-ink-300 ring-1 ring-inset ring-ink-500">
-                Enviando mensagem
+                {t.pending}
               </span>
             )}
           </span>

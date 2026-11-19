@@ -23,7 +23,7 @@ export const Footer = () => {
         © {new Date().getFullYear()} Bruno Melo · {t.role}
       </p>
 
-      <nav aria-label="Redes" className="flex flex-wrap gap-x-5 gap-y-2 sm:ml-auto">
+      <nav aria-label={t.linksLabel} className="flex flex-wrap gap-x-5 gap-y-2 sm:ml-auto">
         {contactLinks.map((link) => (
           <Link
             key={link.label}

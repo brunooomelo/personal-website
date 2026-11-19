@@ -5,6 +5,8 @@ import { signOut } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { FiSend } from "react-icons/fi";
 import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { getPagesDictionary } from "@/i18n/pages";
 
 const MAX_COMMENT_LENGTH = 280;
 
@@ -26,6 +28,7 @@ type CommentFormProps = {
 
 export const CommentForm = ({ session }: CommentFormProps) => {
   const queryClient = useQueryClient();
+  const t = getPagesDictionary(useRouter().locale).guestbook;
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: { comment: "" },
   });
@@ -49,8 +52,12 @@ export const CommentForm = ({ session }: CommentFormProps) => {
       // fetch não rejeita em 4xx/5xx. Sem esta checagem uma mensagem recusada
       // pelo servidor continuava aparecendo na lista como se tivesse ido.
       if (!res.ok) {
-        const body = await res.json().catch(() => null);
-        throw new Error(body?.error ?? "Não foi possível enviar sua mensagem.");
+        // A API manda um `code` estável; o texto mostrado sai do idioma da página.
+        const body: { code?: keyof typeof t.errors } | null = await res
+          .json()
+          .catch(() => null);
+        const code = body?.code && body.code in t.errors ? body.code : "generic";
+        throw new Error(t.errors[code]);
       }
     },
     {
@@ -112,7 +119,8 @@ export const CommentForm = ({ session }: CommentFormProps) => {
               value={value}
               maxLength={MAX_COMMENT_LENGTH}
               className="block w-full rounded-md border border-ink-500 bg-ink-900 px-4 py-1.5 text-ink-50 placeholder:text-ink-400"
-              placeholder="Deixe sua mensagem aqui"
+              placeholder={t.placeholder}
+              aria-label={t.placeholder}
             />
           )}
         />
@@ -123,12 +131,12 @@ export const CommentForm = ({ session }: CommentFormProps) => {
         >
           {mutation.isLoading ? (
             <span className="font-mono text-sm font-semibold leading-6">
-              Enviando
+              {t.sending}
             </span>
           ) : (
             <>
               <span className="font-mono text-sm font-semibold leading-6">
-                Enviar
+                {t.send}
               </span>
               <FiSend className="h-5 w-5" />
             </>
@@ -154,7 +162,7 @@ export const CommentForm = ({ session }: CommentFormProps) => {
         }}
         className="font-mono text-xs text-ink-300 hover:text-ink-50 mt-2 mb-6"
       >
-        Sair do guestbook
+        {t.signOut}
       </button>
     </div>
   );
