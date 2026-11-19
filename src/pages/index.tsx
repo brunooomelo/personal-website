@@ -44,7 +44,7 @@ export default function Home() {
 
       <section className="flex flex-col gap-3">
         <h2>{t.projects.heading}</h2>
-        <Projects locale={locale} activeOnly />
+        <Projects locale={locale} archivedLabel={t.projects.archived} />
       </section>
 
       <section id="contato" className="flex flex-col gap-3 pb-8">
