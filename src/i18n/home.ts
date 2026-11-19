@@ -40,7 +40,7 @@ type Dictionary = {
     labels: Record<"problem" | "constraint" | "built" | "result", string>;
     items: Case[];
   };
-  technologies: string;
+  stack: { heading: string; groups: { area: string; items: string }[] };
   companies: string;
   projects: { lead: string; archived: string };
 };
@@ -120,10 +120,17 @@ const pt: Dictionary = {
       },
     ],
   },
-  technologies:
-    "Tecnologias que uso no dia a dia:",
-  companies:
-    "Empresas em que já trabalhei, como desenvolvedor backend e frontend e até como UI designer:",
+  stack: {
+    heading: "Stack",
+    groups: [
+      { area: "Integrações", items: "OAuth 2.0, mTLS, webhooks, idempotência, APIs de bancos e de mensageria (Twilio, WhatsApp)" },
+      { area: "Backend", items: "Node.js, TypeScript, filas, Postgres e SQL" },
+      { area: "IA", items: "LLMs, prompts e variantes por cliente, agentes no WhatsApp" },
+      { area: "Produção", items: "New Relic, NRQL, dashboards e alertas" },
+      { area: "Interface", items: "Next.js, React, Tailwind" },
+    ],
+  },
+  companies: "Onde já trabalhei:",
   projects: {
     lead: "Fora do trabalho, faço side-projects e #BuildInPublic. Alguns ainda estão ativos e outros já foram descontinuados.",
     archived: "Arquivado",
@@ -205,9 +212,17 @@ const en: Dictionary = {
       },
     ],
   },
-  technologies: "Technologies I use day to day:",
-  companies:
-    "Companies I've worked at, as a backend and frontend developer and even as a UI designer:",
+  stack: {
+    heading: "Stack",
+    groups: [
+      { area: "Integrations", items: "OAuth 2.0, mTLS, webhooks, idempotency, banking and messaging APIs (Twilio, WhatsApp)" },
+      { area: "Backend", items: "Node.js, TypeScript, queues, Postgres and SQL" },
+      { area: "AI", items: "LLMs, per-customer prompts and variants, WhatsApp agents" },
+      { area: "Production", items: "New Relic, NRQL, dashboards and alerts" },
+      { area: "Interface", items: "Next.js, React, Tailwind" },
+    ],
+  },
+  companies: "Where I've worked:",
   projects: {
     lead: "Outside work I build side projects in public (#BuildInPublic). Some are still running and some have been retired.",
     archived: "Archived",

@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Technologies } from "@/components/technologies";
 import { CompanyWorked } from "@/components/companies-worked";
 import { Projects } from "@/components/projects";
 import { Cases } from "@/components/cases";
@@ -47,9 +46,21 @@ export default function Home() {
         <Cases items={t.cases.items} labels={t.cases.labels} />
       </section>
 
+      {/* Mesmo padrão de rótulo em mono à esquerda usado nos cases. */}
       <section className="flex flex-col gap-3">
-        <p>{t.technologies}</p>
-        <Technologies />
+        <h2>{t.stack.heading}</h2>
+        <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-[9rem_1fr]">
+          {t.stack.groups.map((group) => (
+            <div key={group.area} className="contents">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.05em] text-ink-400 sm:pt-1.5">
+                {group.area}
+              </dt>
+              <dd className="-mt-2 min-w-0 text-ink-300 sm:mt-0">
+                {group.items}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section className="flex flex-col gap-3">
