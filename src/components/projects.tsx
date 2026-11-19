@@ -40,14 +40,22 @@ const projects = [
   },
 ];
 
-type ProjectsProps = { locale?: "pt-BR" | "en"; archivedLabel?: string };
+type ProjectsProps = {
+  locale?: "pt-BR" | "en";
+  archivedLabel?: string;
+  // Na home só aparecem os projetos que ainda estão no ar.
+  activeOnly?: boolean;
+};
 
 export const Projects = ({
   locale = "pt-BR",
   archivedLabel = "Arquivado",
+  activeOnly = false,
 }: ProjectsProps) => (
   <section className="flex flex-col border-b border-ink-500">
-    {projects.map((project) => (
+    {projects
+      .filter((project) => !activeOnly || !project.isArchived)
+      .map((project) => (
       <Link
         key={project.title}
         aria-label={project.ariaLabel}
